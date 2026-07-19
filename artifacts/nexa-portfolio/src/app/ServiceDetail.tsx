@@ -1,4 +1,6 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
+import { useJsonLd, buildService, buildBreadcrumb } from '@/lib/jsonld';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -15,6 +17,20 @@ export function ServiceDetail() {
   const [, setLocation] = useLocation();
   const params = useParams();
   const service = services.find(s => s.slug === params.slug);
+
+  useSEO({
+    title: service ? `${service.title} — Service` : 'Service',
+    description: service ? service.description : 'A specialised web development service from NEXA.',
+    canonicalPath: `/services/${params.slug ?? ''}`,
+  });
+  useJsonLd('service-detail', service ? [
+    buildService({ name: service.title, description: service.description, slug: service.slug }),
+    buildBreadcrumb([
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: service.title, path: `/services/${service.slug}` },
+    ]),
+  ] : []);
   const processRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<SVGPathElement>(null);
 
@@ -74,7 +90,7 @@ export function ServiceDetail() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         <header className="mb-32">
           <Link href="/services" className="text-sm font-mono uppercase tracking-wider text-text-2 hover:text-text-main mb-8 inline-block">← All Capabilities</Link>
           <h1 className="text-fluid-display font-bold mb-8 leading-[0.95] max-w-5xl">{service.title}</h1>

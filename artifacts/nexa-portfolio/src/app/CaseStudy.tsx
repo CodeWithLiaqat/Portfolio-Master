@@ -1,4 +1,6 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
+import { useJsonLd, buildBreadcrumb } from '@/lib/jsonld';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -11,6 +13,17 @@ export function CaseStudy() {
   const params = useParams();
   const study = caseStudies.find(s => s.slug === params.slug);
 
+  useSEO({
+    title: study ? `${study.title} — Case Study` : 'Case Study',
+    description: study ? study.approach.slice(0, 155) : 'A case study from the NEXA studio.',
+    canonicalPath: `/portfolio/${params.slug ?? ''}`,
+  });
+  useJsonLd('casestudy-bc', buildBreadcrumb([
+    { name: 'Home', path: '/' },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: study?.title ?? 'Case Study', path: `/portfolio/${params.slug ?? ''}` },
+  ]));
+
   if (!study) return <NotFound />;
 
   return (
@@ -18,7 +31,7 @@ export function CaseStudy() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         <header className="mb-16 text-center">
           <span className="text-eyebrow text-accent mb-6 block">Case Study</span>
           <h1 className="text-fluid-display font-bold mb-8 leading-[0.95]">{study.title}</h1>

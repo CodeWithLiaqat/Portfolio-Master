@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -11,6 +12,11 @@ import { MagneticButton } from '@/components/common/MagneticButton';
 
 export function Services() {
   useSmoothScroll();
+  useSEO({
+    title: 'Services — What We Build',
+    description: 'From AI web apps to cinematic landing pages, ecommerce, and design systems — NEXA specialises in high-performance digital experiences.',
+    canonicalPath: '/services',
+  });
   const deckRef = useRef<HTMLDivElement>(null);
   const [_, setLocation] = useLocation();
 
@@ -45,7 +51,7 @@ export function Services() {
       <Cursor />
       <Nav />
 
-      <main className="relative z-10">
+      <main id="main-content" className="relative z-10">
         <header className="pt-48 pb-24 max-w-7xl mx-auto px-6 relative z-10">
           <h1 className="text-fluid-display font-bold mb-6 leading-[0.95]">The Forge</h1>
           <p className="text-xl text-text-2 max-w-2xl">Specialized capabilities to build next-generation digital experiences.</p>

@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -10,6 +11,11 @@ import { AnimatePresence, motion } from 'motion/react';
 
 export function Insights() {
   useSmoothScroll();
+  useSEO({
+    title: 'Insights — Editorial on Craft & Code',
+    description: 'Thoughts on AI, web performance, design process, and the future of digital craft — from the NEXA studio journal.',
+    canonicalPath: '/insights',
+  });
   const [activeTopic, setActiveTopic] = useState('All');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -28,7 +34,7 @@ export function Insights() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         
         {/* 1. Editorial Hero */}
         <header className="mb-32 border-b border-border-main pb-24">

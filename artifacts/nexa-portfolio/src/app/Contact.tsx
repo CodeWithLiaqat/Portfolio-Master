@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -7,6 +8,11 @@ import { useLocation } from 'wouter';
 
 export function Contact() {
   useSmoothScroll();
+  useSEO({
+    title: 'Start a Project — Contact NEXA',
+    description: 'Reach out to NEXA to discuss your project. We read every message and reply within one business day. Proposals within 48 hours.',
+    canonicalPath: '/contact',
+  });
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [, setLocation] = useLocation();
@@ -16,6 +22,7 @@ export function Contact() {
     if (!formRef.current) return;
     
     setStatus('loading');
+    // Announce loading state to screen readers via aria-live (set on status region)
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
 
@@ -47,7 +54,7 @@ export function Contact() {
       {/* Background glow to simulate beacon */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         <header className="mb-24 text-center max-w-3xl mx-auto">
           <h1 className="text-fluid-display font-bold mb-8 leading-[0.95]">Initiate a project.</h1>
           <p className="text-xl text-text-2">We read every message today, reply within one business day, and can provide a proposal within 48 hours.</p>
@@ -55,6 +62,12 @@ export function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-7">
+            {/* aria-live region so screen readers announce status changes */}
+            <div aria-live="polite" aria-atomic="true" className="sr-only">
+              {status === 'loading' && 'Sending your message…'}
+              {status === 'success' && 'Message received. We will be in touch within one business day.'}
+              {status === 'error' && 'Transmission failed. Please try again or email us directly.'}
+            </div>
             <div className="glass-panel p-8 md:p-12 rounded-[24px]">
               {status === 'success' ? (
                 <div className="text-center py-16">

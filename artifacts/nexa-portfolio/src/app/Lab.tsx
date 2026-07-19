@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -12,6 +13,11 @@ import { useLocation } from 'wouter';
 
 export function Lab() {
   useSmoothScroll();
+  useSEO({
+    title: 'Lab — WebGL Experiments & Open Source',
+    description: 'Where NEXA builds in public. Interactive WebGL demos, open-source utilities, code snippets, and the tools behind our work.',
+    canonicalPath: '/lab',
+  });
   const [, setLocation] = useLocation();
 
   const snippets = [
@@ -56,7 +62,7 @@ gsap.ticker.lagSmoothing(0)`
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         
         {/* 1. Hero */}
         <header className="mb-32 border-b border-border-main pb-16">

@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
+import { useJsonLd, buildPerson, buildProfessionalService } from '@/lib/jsonld';
 import { useThemeStore } from '@/stores/theme';
 import { useSceneStore } from '@/stores/scene';
 import { Nav } from '@/components/common/Nav';
@@ -18,6 +20,12 @@ import { ActBeacon } from '@/components/sections/home/ActBeacon';
 
 export function Home() {
   useSmoothScroll();
+  useSEO({
+    title: 'Cinematic AI-Era Web Studio',
+    description: 'NEXA builds Awwwards-quality web experiences — WebGL, GSAP, React — for founders and agencies who refuse to settle for ordinary.',
+    canonicalPath: '/',
+  });
+  useJsonLd('home', [buildPerson(), buildProfessionalService()]);
   const initTheme = useThemeStore(s => s.initialize);
   const setAct = useSceneStore(s => s.setAct);
   const mainRef = useRef<HTMLElement>(null);
@@ -70,7 +78,7 @@ export function Home() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-accent-2 rounded-full mix-blend-screen filter blur-[150px] animate-blob-spin-reverse origin-center opacity-20"></div>
       </div>
 
-      <main ref={mainRef} className="relative z-10 pt-[env(safe-area-inset-top)]">
+      <main id="main-content" ref={mainRef} className="relative z-10 pt-[env(safe-area-inset-top)]">
         <div className="act-arrival"><ActArrival /></div>
         <div className="act-signal"><ActSignal /></div>
         <div className="act-forge"><ActForge /></div>

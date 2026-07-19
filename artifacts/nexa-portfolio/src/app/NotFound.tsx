@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Cursor } from '@/components/common/Cursor';
 import { Link, useLocation } from 'wouter';
@@ -9,6 +10,12 @@ import { useGSAP } from '@gsap/react';
 
 export default function Custom404() {
   useSmoothScroll();
+  useSEO({
+    title: '404 — Page Not Found',
+    description: 'The page you are looking for does not exist.',
+    canonicalPath: '/404',
+    noIndex: true,
+  });
   const [, setLocation] = useLocation();
   const mainRef = useRef<HTMLDivElement>(null);
 

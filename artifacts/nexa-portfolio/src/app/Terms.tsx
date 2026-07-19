@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -6,6 +7,11 @@ import { Link } from 'wouter';
 
 export function Terms() {
   useSmoothScroll();
+  useSEO({
+    title: 'Terms of Service',
+    description: 'NEXA\'s standard terms of engagement covering professional services, intellectual property, payment, and confidentiality.',
+    canonicalPath: '/legal/terms',
+  });
 
   const sections = [
     { id: '1', title: '1. Professional Services' },
@@ -28,7 +34,7 @@ export function Terms() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         <header className="mb-24 border-b border-border-main pb-16 max-w-3xl">
           <h1 className="text-5xl md:text-7xl font-display font-bold mb-8 leading-[0.95]">Terms of Service</h1>
           <p className="text-eyebrow text-text-2">Last Updated: February 2026</p>

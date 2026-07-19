@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -10,6 +11,11 @@ import { useLocation } from 'wouter';
 
 export function About() {
   useSmoothScroll();
+  useSEO({
+    title: 'About — The Studio Behind the Craft',
+    description: 'Meet NEXA: the philosophy, process, and people behind cinematic-quality web work for AI companies, luxury brands, and agencies.',
+    canonicalPath: '/about',
+  });
   const [, setLocation] = useLocation();
   const pageRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
@@ -76,7 +82,7 @@ export function About() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         <header className="mb-32">
           <h1 className="text-fluid-display font-bold mb-8 leading-[0.95]">An independent AI web developer based in London.</h1>
           <div className="w-full aspect-video bg-surface rounded-2xl overflow-hidden relative">

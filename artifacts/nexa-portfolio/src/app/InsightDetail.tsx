@@ -1,4 +1,6 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
+import { useJsonLd, buildArticle, buildBreadcrumb } from '@/lib/jsonld';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -12,6 +14,21 @@ export function InsightDetail() {
   const currentIndex = insights.findIndex(i => i.slug === params.slug);
   const insight = insights[currentIndex];
 
+  useSEO({
+    title: insight ? insight.title : 'Insight',
+    description: insight ? insight.excerpt : 'A perspective from the NEXA studio journal.',
+    canonicalPath: `/insights/${params.slug ?? ''}`,
+    ogType: 'article',
+  });
+  useJsonLd('insight-article', insight ? [
+    buildArticle({ title: insight.title, excerpt: insight.excerpt, slug: insight.slug, date: insight.date }),
+    buildBreadcrumb([
+      { name: 'Home', path: '/' },
+      { name: 'Insights', path: '/insights' },
+      { name: insight.title, path: `/insights/${insight.slug}` },
+    ]),
+  ] : []);
+
   if (!insight) return <NotFound />;
 
   const nextInsight = insights[currentIndex + 1] || insights[0];
@@ -21,7 +38,7 @@ export function InsightDetail() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-3xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-3xl mx-auto px-6 relative z-10">
         <article className="mb-32">
           <header className="mb-24 border-b border-border-main pb-16">
             <Link href="/insights" className="text-sm font-mono uppercase tracking-wider text-text-2 hover:text-text-main mb-16 inline-block">← Journal</Link>

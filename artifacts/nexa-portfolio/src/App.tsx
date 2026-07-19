@@ -23,6 +23,7 @@ import Custom404 from '@/app/NotFound';
 import { ArtifactCanvas } from '@/three/ArtifactCanvas';
 import { ThemeOrbs } from '@/components/common/ThemeOrbs';
 import { Preloader } from '@/components/common/Preloader';
+import { SkipLink } from '@/components/common/SkipLink';
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+          <SkipLink />
           <Preloader />
           <ThemeOrbs />
           <ArtifactCanvas />

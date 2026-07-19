@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useThemeStore } from '@/stores/theme';
@@ -33,11 +33,11 @@ function curlNoise(p: THREE.Vector3, eps = 0.01): THREE.Vector3 {
   const dx = new THREE.Vector3(eps, 0, 0);
   const dy = new THREE.Vector3(0, eps, 0);
   const dz = new THREE.Vector3(0, 0, eps);
-  const curlX = (noise3(p.clone().add(dy)) - noise3(p.clone().sub(dy))) / (2 * eps) 
+  const curlX = (noise3(p.clone().add(dy)) - noise3(p.clone().sub(dy))) / (2 * eps)
               - (noise3(p.clone().add(dz)) - noise3(p.clone().sub(dz))) / (2 * eps);
-  const curlY = (noise3(p.clone().add(dz)) - noise3(p.clone().sub(dz))) / (2 * eps) 
+  const curlY = (noise3(p.clone().add(dz)) - noise3(p.clone().sub(dz))) / (2 * eps)
               - (noise3(p.clone().add(dx)) - noise3(p.clone().sub(dx))) / (2 * eps);
-  const curlZ = (noise3(p.clone().add(dx)) - noise3(p.clone().sub(dx))) / (2 * eps) 
+  const curlZ = (noise3(p.clone().add(dx)) - noise3(p.clone().sub(dx))) / (2 * eps)
               - (noise3(p.clone().add(dy)) - noise3(p.clone().sub(dy))) / (2 * eps);
   return new THREE.Vector3(curlX, curlY, curlZ);
 }
@@ -56,7 +56,12 @@ interface ParticleFieldProps {
 
 export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: ParticleFieldProps) {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const count = countProp ?? (isMobile ? 1200 : 3000);
+  const [reducedMotion] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+
+  // Reduce particle count by 80% when motion is reduced — still renders a static field
+  const count = countProp ?? (reducedMotion ? 600 : isMobile ? 1200 : 3000);
 
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.PointsMaterial>(null);
@@ -92,7 +97,6 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
   const getActTarget = (i: number) => {
     switch (act) {
       case 5: {
-        // Constellation — scatter into a loose sphere
         const angle = (i / count) * Math.PI * 2;
         const layer = Math.floor(i / (count / 5));
         return new THREE.Vector3(
@@ -102,7 +106,6 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
         );
       }
       case 7: {
-        // Beacon — converge to origin with intensity
         return new THREE.Vector3(
           (Math.random() - 0.5) * 0.5,
           (Math.random() - 0.5) * 0.5,
@@ -116,6 +119,12 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
 
   useFrame((state, delta) => {
     if (!pointsRef.current || !materialRef.current) return;
+
+    // Respect prefers-reduced-motion: only update color, skip all particle motion
+    if (reducedMotion) {
+      easing.dampC(materialRef.current.color, THEME_COLORS[theme], 0.25, delta);
+      return;
+    }
 
     const posAttr = pointsRef.current.geometry.getAttribute('position') as THREE.BufferAttribute;
     const arr = posAttr.array as Float32Array;
@@ -142,12 +151,10 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
 
       // Act-based attractor
       if (act === 7) {
-        // Strong convergence to center in beacon act
         velocities[ix]     += -arr[ix] * 2 * dt;
         velocities[ix + 1] += -arr[ix + 1] * 2 * dt;
         velocities[ix + 2] += -arr[ix + 2] * 2 * dt;
       } else if (act === 5) {
-        // Scatter orbit for constellation
         const angle = state.clock.elapsedTime * 0.1 + (i / count) * Math.PI * 2;
         const r = 3 + (i % 5) * 0.6;
         const tx = Math.cos(angle) * r;
@@ -155,7 +162,6 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
         velocities[ix]     += (tx - arr[ix]) * dt * 0.5;
         velocities[ix + 1] += (ty - arr[ix + 1]) * dt * 0.5;
       } else {
-        // Containment — keep within radius
         const dist = p.length();
         if (dist > radius) {
           velocities[ix]     += -arr[ix] * 0.5 * dt;
@@ -169,7 +175,7 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
       velocities[ix + 1] *= 0.97;
       velocities[ix + 2] *= 0.97;
 
-      // Clamp velocity magnitude to prevent runaway values
+      // Clamp velocity magnitude
       const vx = velocities[ix], vy = velocities[ix + 1], vz = velocities[ix + 2];
       const mag = Math.sqrt(vx * vx + vy * vy + vz * vz);
       const maxVel = 0.25;
@@ -206,7 +212,7 @@ export function ParticleField({ count: countProp, radius = 6, speed = 0.18 }: Pa
         size={isMobile ? 0.025 : 0.018}
         sizeAttenuation
         transparent
-        opacity={0.5}
+        opacity={reducedMotion ? 0.35 : 0.5}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
       />

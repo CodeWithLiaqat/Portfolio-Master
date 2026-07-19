@@ -206,4 +206,33 @@
     50% { transform: rotate(180deg) scale(0.8); }
     100% { transform: rotate(0deg) scale(1); }
   }
+
+  /* ── Accessibility: respect reduced-motion preference ─────────────────────
+     Stop all animations and transitions for users who opt out of motion.
+     CSS transitions on the :root (theme transitions) and blob decorations
+     are the biggest offenders. GSAP checks matchMedia at runtime; this layer
+     handles purely-CSS motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Kill theme-transition CSS custom-property animations */
+    :root {
+      transition: none !important;
+    }
+  }
+
+  /* ── Mobile viewport height: use svh so content doesn't hide under
+     the browser chrome on iOS Safari / mobile Chrome ───────────────── */
+  @supports (min-height: 100svh) {
+    .min-h-screen {
+      min-height: 100svh;
+    }
+  }
 }

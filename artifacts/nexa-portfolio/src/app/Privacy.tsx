@@ -1,17 +1,23 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
 
 export function Privacy() {
   useSmoothScroll();
+  useSEO({
+    title: 'Privacy Policy',
+    description: 'How NEXA handles your data, cookies, and personal information.',
+    canonicalPath: '/legal/privacy',
+  });
 
   return (
     <div className="bg-bg-0 min-h-screen text-text-main">
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-3xl mx-auto px-6">
+      <main id="main-content" className="pt-48 pb-32 max-w-3xl mx-auto px-6">
         <header className="mb-16 border-b border-border-main pb-12">
           <h1 className="text-5xl font-display font-bold mb-6 leading-tight">Privacy Policy</h1>
           <p className="text-eyebrow text-text-2">Last Updated: February 2026</p>

@@ -29,7 +29,7 @@ export function ArtifactCanvas() {
   if (tier !== null && tier <= 1) return null; // Low-end GPU: skip WebGL overlay
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}
         dpr={[1, 1.75]}

@@ -1,4 +1,5 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -15,6 +16,11 @@ const CATEGORIES = ['All', 'AI & SaaS', 'Ecommerce', 'Web Apps', 'Editorial', 'M
 
 export function Portfolio() {
   useSmoothScroll();
+  useSEO({
+    title: 'Selected Works — Case Studies',
+    description: 'Browse NEXA\'s portfolio of cinematic web experiences — AI SaaS, luxury ecommerce, editorial, and mobile. Each project drives measurable outcomes.',
+    canonicalPath: '/portfolio',
+  });
   const [activeFilter, setActiveFilter] = useState('All');
   const [_, setLocation] = useLocation();
   const headerRef = useRef<HTMLHeadingElement>(null);
@@ -62,7 +68,7 @@ export function Portfolio() {
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
+      <main id="main-content" className="pt-48 pb-32 max-w-7xl mx-auto px-6 relative z-10">
         {/* Hero */}
         <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border-main pb-16">
           <div>

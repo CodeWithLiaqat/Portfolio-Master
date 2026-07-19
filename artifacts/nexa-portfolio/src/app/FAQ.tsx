@@ -1,4 +1,6 @@
 import { useSmoothScroll } from '@/motion/scroll';
+import { useSEO } from '@/lib/seo';
+import { useJsonLd, buildFAQPage } from '@/lib/jsonld';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
@@ -30,13 +32,20 @@ const faqs = [
 
 export function FAQ() {
   useSmoothScroll();
+  useSEO({
+    title: 'FAQ — Questions Answered',
+    description: 'Pricing, process, timeline, and technology questions about working with NEXA. Straight answers, no fluff.',
+    canonicalPath: '/faq',
+  });
+  const allQuestions = faqs.flatMap(g => g.questions);
+  useJsonLd('faq-page', buildFAQPage(allQuestions.map(q => ({ q: q.q, a: q.a }))));
 
   return (
     <div className="bg-bg-0 min-h-screen text-text-main">
       <Cursor />
       <Nav />
 
-      <main className="pt-48 pb-32 max-w-4xl mx-auto px-6">
+      <main id="main-content" className="pt-48 pb-32 max-w-4xl mx-auto px-6">
         <header className="mb-24 text-center">
           <h1 className="text-fluid-display font-bold mb-6 leading-[0.95]">Frequently Asked.</h1>
           <p className="text-xl text-text-2">Clarity over cleverness.</p>
