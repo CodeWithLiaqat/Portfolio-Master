@@ -89,6 +89,9 @@ export function ServiceDetail() {
     'ecommerce-websites': ['Headless Shopify', 'Custom Cart Flow', 'WebGL Product Configurator', 'ERP Sync'],
     'web-applications': ['React/Next.js Architecture', 'Complex State Management', 'Real-time WebSockets', 'RBAC Systems'],
     'premium-landing-pages': ['Cinematic Scroll Sequences', 'WebGL Hero Scenes', 'Lighthouse 95+ Opt', 'A/B Testing Setup'],
+    'wordpress-development': ['Custom Theme Architecture', 'WooCommerce Integration', 'Plugin Development', 'Performance Hardening'],
+    'headless-wordpress': ['WPGraphQL Setup', 'Next.js Frontend', 'Incremental Static Regeneration', 'ACF Blocks API'],
+    'mobile-applications': ['React Native / Expo Build', 'Offline-first Data Sync', 'Push Notifications', 'App Store Submission'],
   };
 
   const deliverables = deliverableMap[service.slug] || ['Custom Architecture', 'Performant APIs', 'Accessible UI', 'Analytics Setup'];
