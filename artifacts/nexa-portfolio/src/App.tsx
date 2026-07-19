@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
+import { useEffect } from 'react';
+import { injectViewTransitionStyles } from '@/motion/transitions';
 
 import { Home } from '@/app/Home';
 import { About } from '@/app/About';
@@ -46,6 +48,10 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    injectViewTransitionStyles();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

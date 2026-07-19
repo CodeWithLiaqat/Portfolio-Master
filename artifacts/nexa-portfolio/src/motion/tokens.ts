@@ -14,5 +14,9 @@ export const tokens = {
     ui: 0.06,
     content: 0.1,
     chars: 0.02
+  },
+  distance: {
+    reveal: 32,
+    hero: 48 // px amounts for reveal translations
   }
 };

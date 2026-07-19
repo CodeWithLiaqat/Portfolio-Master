@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { Link, useLocation } from 'wouter';
 import { AnimatePresence, motion } from 'motion/react';
 import { MagneticButton } from './MagneticButton';
+import { TransitionLink } from './TransitionLink';
 
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
@@ -37,23 +38,23 @@ export function Nav() {
     <>
       <nav ref={navRef} className="fixed top-0 left-0 w-full z-[90] px-6 py-4 transition-transform">
         <div className="glass-panel mx-auto max-w-7xl rounded-full px-6 py-3 flex items-center justify-between">
-          <Link href="/" className="font-display font-semibold tracking-[0.1em] text-xl relative group overflow-hidden">
+          <TransitionLink href="/" className="font-display font-semibold tracking-[0.1em] text-xl relative group overflow-hidden">
             NEXA
             <span className="absolute left-0 bottom-0 w-full h-[1px] bg-accent origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
-          </Link>
+          </TransitionLink>
           
           <div className="hidden md:flex items-center gap-8">
             {['Work', 'Services', 'Insights', 'Lab', 'About'].map(item => (
-              <Link key={item} href={`/${item.toLowerCase() === 'work' ? 'portfolio' : item.toLowerCase()}`} className="text-sm font-medium text-text-2 hover:text-text-main transition-colors">
+              <TransitionLink key={item} href={`/${item.toLowerCase() === 'work' ? 'portfolio' : item.toLowerCase()}`} className="text-sm font-medium text-text-2 hover:text-text-main transition-colors">
                 {item}
-              </Link>
+              </TransitionLink>
             ))}
           </div>
           
           <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden md:inline-flex bg-accent text-bg-0 px-6 py-2 rounded-full text-sm font-mono uppercase tracking-wider hover:opacity-90 transition-opacity">
+            <TransitionLink href="/contact" className="hidden md:inline-flex bg-accent text-bg-0 px-6 py-2 rounded-full text-sm font-mono uppercase tracking-wider hover:opacity-90 transition-opacity">
               Start a project
-            </Link>
+            </TransitionLink>
             
             <button 
               className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
@@ -84,9 +85,9 @@ export function Nav() {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 + i * 0.05, duration: 0.5 }}
                   >
-                    <Link href={item === 'Home' ? '/' : `/${item.toLowerCase()}`} className="hover:text-accent transition-colors">
+                    <TransitionLink href={item === 'Home' ? '/' : `/${item.toLowerCase()}`} className="hover:text-accent transition-colors">
                       {item}
-                    </Link>
+                    </TransitionLink>
                   </motion.div>
                 ))}
               </div>

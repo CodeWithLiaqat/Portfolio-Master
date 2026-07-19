@@ -4,7 +4,7 @@ import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
 import { caseStudies } from '@/content/data';
 import { useParams, Link } from 'wouter';
-import NotFound from '@/pages/not-found';
+import NotFound from '@/app/NotFound';
 
 export function CaseStudy() {
   useSmoothScroll();
