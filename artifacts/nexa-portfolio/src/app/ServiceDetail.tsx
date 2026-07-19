@@ -4,7 +4,7 @@ import { useJsonLd, buildService, buildBreadcrumb } from '@/lib/jsonld';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
-import { services, caseStudies } from '@/content/data';
+import { services, caseStudies, childServices } from '@/content/data';
 import { useParams, Link, useLocation } from 'wouter';
 import NotFound from '@/app/NotFound';
 import { MagneticButton } from '@/components/common/MagneticButton';
@@ -152,6 +152,36 @@ export function ServiceDetail() {
             </div>
           </div>
         </section>
+
+        {/* Specialized Platforms — only for Mobile Applications */}
+        {service.slug === 'mobile-applications' && (() => {
+          const mobileChildren = childServices.filter(cs => cs.parentSlug === 'mobile-applications');
+          return mobileChildren.length > 0 ? (
+            <section className="mb-32">
+              <h2 className="text-2xl font-display mb-8">Specialized Platforms</h2>
+              <p className="text-text-2 mb-10 max-w-2xl">Need a dedicated native experience for a specific platform? We offer focused iOS and Android development services in addition to cross-platform builds.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {mobileChildren.map(cs => (
+                  <a
+                    key={cs.slug}
+                    href={`/services/${cs.slug}`}
+                    className="group relative flex flex-col gap-4 p-8 bg-surface rounded-[1.5rem] border border-border-main hover:border-accent/50 transition-all duration-500 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_color-mix(in_oklab,_var(--color-accent)_6%,_transparent),_transparent_65%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden="true" />
+                    <div className="relative z-10">
+                      <span className="text-eyebrow text-accent mb-3 block">{cs.shortTitle}</span>
+                      <h3 className="text-2xl font-display mb-3 group-hover:text-accent transition-colors">{cs.title}</h3>
+                      <p className="text-text-2 leading-relaxed mb-6">{cs.description}</p>
+                      <span className="text-sm font-mono uppercase tracking-wider text-text-main border-b border-text-main pb-1 group-hover:text-accent group-hover:border-accent transition-colors">
+                        Explore →
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ) : null;
+        })()}
 
         {/* Models */}
         <section className="mb-32">

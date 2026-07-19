@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { services } from '@/content/data';
+import { services, childServices } from '@/content/data';
 import { useThemeStore } from '@/stores/theme';
 
 export function ActForge() {
@@ -64,6 +64,22 @@ export function ActForge() {
                   <span className="absolute left-0 bottom-0 w-full h-[1px] bg-text-main origin-left scale-x-100 transition-transform duration-500 group-hover:scale-x-0" />
                   <span className="absolute left-0 bottom-0 w-full h-[1px] bg-accent origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
                 </a>
+                {/* Child platform chips — only on Mobile Applications */}
+                {service.slug === 'mobile-applications' && (
+                  <div className="flex gap-3 mt-6">
+                    {childServices
+                      .filter(cs => cs.parentSlug === 'mobile-applications')
+                      .map(cs => (
+                        <a
+                          key={cs.slug}
+                          href={`/services/${cs.slug}`}
+                          className="px-4 py-1.5 rounded-full border border-accent/40 font-mono text-xs uppercase tracking-wider text-text-2 hover:text-accent hover:border-accent transition-all duration-300"
+                        >
+                          {cs.shortTitle}
+                        </a>
+                      ))}
+                  </div>
+                )}
               </div>
               <div className="md:col-span-4 flex items-center justify-center">
                 {/* Fallback for micro-artifact visually */}

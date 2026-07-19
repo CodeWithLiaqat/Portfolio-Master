@@ -3,7 +3,7 @@ import { useSEO } from '@/lib/seo';
 import { Nav } from '@/components/common/Nav';
 import { Footer } from '@/components/common/Footer';
 import { Cursor } from '@/components/common/Cursor';
-import { services } from '@/content/data';
+import { services, childServices } from '@/content/data';
 import { Link, useLocation } from 'wouter';
 import { useRef } from 'react';
 import gsap from 'gsap';
@@ -70,10 +70,26 @@ export function Services() {
                   <span className="text-eyebrow text-text-2 block">0{idx + 1}</span>
                   <h2 className="text-fluid-display font-display leading-[0.95]">{service.title}</h2>
                   <p className="text-xl text-text-2 max-w-md">{service.promise}</p>
-                  <div>
+                  <div className="flex flex-col gap-4">
                     <MagneticButton variant="ghost" onClick={() => setLocation(`/services/${service.slug}`)}>
                       Explore Capability
                     </MagneticButton>
+                    {/* Child platform chips — only on Mobile Applications panel */}
+                    {service.slug === 'mobile-applications' && (
+                      <div className="flex gap-3">
+                        {childServices
+                          .filter(cs => cs.parentSlug === 'mobile-applications')
+                          .map(cs => (
+                            <a
+                              key={cs.slug}
+                              href={`/services/${cs.slug}`}
+                              className="px-4 py-1.5 rounded-full border border-accent/40 font-mono text-xs uppercase tracking-wider text-text-2 hover:text-accent hover:border-accent transition-all duration-300"
+                            >
+                              {cs.shortTitle}
+                            </a>
+                          ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 

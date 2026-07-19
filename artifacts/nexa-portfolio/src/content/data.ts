@@ -135,6 +135,107 @@ export const services = [
   }
 ];
 
+// ─── Child Services (sub-pages under parent services) ────────────────────────
+
+export interface ChildService {
+  slug: string;
+  title: string;
+  shortTitle: string;
+  promise: string;
+  description: string;
+  metaDescription: string;
+  parentSlug: string;
+  parentTitle: string;
+  coverVariant: number;
+  deliverables: string[];
+  faqs: Array<{ q: string; a: string }>;
+  relatedInsightSlug: string;
+  relatedCaseStudySlug: string;
+}
+
+export const childServices: ChildService[] = [
+  {
+    slug: 'ios-app-development',
+    title: 'iOS App Development',
+    shortTitle: 'iOS',
+    promise: 'Native iOS experiences that feel inevitable.',
+    description: 'Bespoke Swift and React Native iOS applications engineered for performance, App Store approval, and the exact experience Apple users expect.',
+    metaDescription: 'iOS app development for founders and product teams who demand more. Bespoke Swift and React Native apps built to App Store standards — design, engineering, and launch.',
+    parentSlug: 'mobile-applications',
+    parentTitle: 'Mobile Applications',
+    coverVariant: 6,
+    deliverables: ['Swift / SwiftUI Architecture', 'React Native Cross-platform', 'App Store Submission', 'Push Notifications & Analytics'],
+    faqs: [
+      {
+        q: 'How much does iOS app development cost?',
+        a: 'A focused iOS app — one or two core user flows, clean design, and App Store launch — starts at approximately £25,000–£45,000. Complex apps with real-time features, custom animations, or backend integrations typically range from £60,000–£150,000. Cost is driven by the number of screens, backend complexity, and the level of UI craft required.'
+      },
+      {
+        q: 'How long does it take to build an iOS app?',
+        a: 'A well-scoped iOS app takes 12–20 weeks from signed specification to App Store submission. Discovery accounts for 2–4 weeks. Build is 8–14 weeks with weekly client reviews. App Store review adds 1–2 weeks. Rushing either phase is the primary cause of overruns and launch failures.'
+      },
+      {
+        q: 'Do you build native Swift apps or React Native?',
+        a: 'Both. Native Swift and SwiftUI deliver the best performance and deepest platform integration — appropriate for apps using custom animations, complex gestures, or hardware features like ARKit. React Native is the right choice for teams shipping on iOS and Android simultaneously or sharing a web codebase. We recommend the right approach for your specific product.'
+      },
+      {
+        q: 'Can you handle App Store submission and review?',
+        a: 'Yes. App Store submission is included in every iOS project: App Store Connect metadata, screenshots at all required device sizes, privacy manifest compliance, and responding to any App Review queries. We have shipped apps through review across multiple categories and know how to avoid the most common rejection triggers.'
+      },
+      {
+        q: 'What happens after the app launches?',
+        a: 'Post-launch, we offer retainer support covering iOS OS update compatibility, new device support, feature additions, and analytics review. Most clients begin with a 3-month post-launch retainer — the period when user feedback is heaviest and iteration is fastest. Monthly or quarterly retainers follow depending on the product roadmap.'
+      },
+      {
+        q: 'Do you design the app as well as build it?',
+        a: 'Yes. CODEICS handles both design and engineering. We produce wireframes, high-fidelity Figma designs, and a motion specification before a line of code is written. Clients with existing designs are welcome — we will review for engineering feasibility and Apple HIG compliance before committing to the build specification.'
+      }
+    ],
+    relatedInsightSlug: 'core-web-vitals-craft',
+    relatedCaseStudySlug: 'vela',
+  },
+  {
+    slug: 'android-app-development',
+    title: 'Android App Development',
+    shortTitle: 'Android',
+    promise: 'Android apps built for the full spectrum of devices.',
+    description: 'Bespoke Kotlin and React Native Android applications engineered for Google Play approval, Material Design 3 standards, and the fragmented device landscape Android demands.',
+    metaDescription: 'Android app development for founders and product teams reaching the broadest mobile audience. Kotlin and React Native apps built to Google Play standards — design, engineering, and launch.',
+    parentSlug: 'mobile-applications',
+    parentTitle: 'Mobile Applications',
+    coverVariant: 7,
+    deliverables: ['Kotlin / Jetpack Compose', 'React Native Cross-platform', 'Google Play Submission', 'Material Design 3 Implementation'],
+    faqs: [
+      {
+        q: 'How much does Android app development cost?',
+        a: 'A focused Android app — core user flows, clean Material Design 3 UI, and Google Play launch — starts at approximately £22,000–£42,000. Android device fragmentation (thousands of screen sizes and OS versions) can add engineering time compared to an equivalent iOS build. Complex apps with real-time features typically range from £55,000–£140,000.'
+      },
+      {
+        q: 'How long does Android app development take?',
+        a: 'A well-scoped Android app takes 10–18 weeks from signed specification to Google Play submission. Discovery and specification account for 2–4 weeks. Build is 7–12 weeks with weekly reviews. Google Play review is typically within 72 hours. Comprehensive device testing across OS versions and manufacturers adds 1–2 weeks near launch.'
+      },
+      {
+        q: 'Do you build native Kotlin apps or React Native?',
+        a: 'Both. Native Kotlin with Jetpack Compose delivers the best performance and deepest Android platform integration — appropriate for apps requiring complex custom layouts, hardware access, or OS-level integrations. React Native is the right choice for teams shipping iOS and Android simultaneously, sharing a JavaScript codebase, or where development speed is the priority.'
+      },
+      {
+        q: 'How do you handle Android device fragmentation?',
+        a: 'Device fragmentation is the primary technical challenge in Android development. We address it through a tiered testing matrix — every build tested on at least 12 device/OS combinations covering the top 95% of active Android users — adaptive layouts using Jetpack Compose\'s intrinsic sizing system, and a minimum SDK target that balances modern API access with broad device reach.'
+      },
+      {
+        q: 'Can you handle Google Play submission and review?',
+        a: 'Yes. Google Play submission is included in every Android project: store listing metadata, feature graphic and screenshot assets at all required sizes, content rating questionnaire, and policy compliance review. We also prepare the data safety section accurately — Google now prominently displays this to users before they install.'
+      },
+      {
+        q: 'Should I build for iOS and Android simultaneously?',
+        a: 'Only if your audience is genuinely split between platforms. For consumer apps, Android represents 70–75% of global mobile users but a lower proportion of premium-product buyers. For B2B tools, iOS often dominates. We will look at your specific target market and make a recommendation. Building both simultaneously with React Native is often right if budget allows — but validating on one platform first is a legitimate strategy.'
+      }
+    ],
+    relatedInsightSlug: 'gsap-threejs-web-experiences',
+    relatedCaseStudySlug: 'vela',
+  }
+];
+
 // ─── Insights ─────────────────────────────────────────────────────────────────
 
 export interface InsightFAQ {

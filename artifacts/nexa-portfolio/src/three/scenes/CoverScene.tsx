@@ -187,20 +187,58 @@ function ParticleAssembly({ accentColor }: { accentColor: string }) {
   );
 }
 
+// ─── MobileCeramic — variants 6 (iOS cool) and 7 (Android warm) ─────────────
+
+function MobileCeramic({ emissiveColor }: { emissiveColor: string }) {
+  const slabRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state, delta) => {
+    if (!slabRef.current) return;
+    slabRef.current.rotation.y += delta * 0.09;
+    slabRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.4) * 0.08;
+  });
+
+  return (
+    <>
+      {/* Crisp emissive rim — cool or warm depending on platform */}
+      <pointLight position={[2.2, 1.8, 1.5]} intensity={4.0} color={emissiveColor} />
+      <pointLight position={[-2.0, -1.5, 0.8]} intensity={1.2} color={emissiveColor} />
+      <Float speed={0.55} floatIntensity={0.12}>
+        <mesh ref={slabRef}>
+          {/* capsuleGeometry: radius, length, capSegments, radialSegments */}
+          <capsuleGeometry args={[0.62, 1.3, 6, 20]} />
+          <meshPhysicalMaterial
+            color="#F2EEE5"
+            roughness={0.05}
+            metalness={0.08}
+            reflectivity={0.9}
+            clearcoat={1.0}
+            clearcoatRoughness={0.02}
+          />
+        </mesh>
+      </Float>
+    </>
+  );
+}
+
 // ─── Scene wrapper with variant selection ────────────────────────────────────
 
 function SceneContent({ variant, accentColor }: { variant: number; accentColor: string }) {
-  const v = ((variant - 1) % 5) + 1;
+  // Variants 6 and 7 are the MobileCeramic pair — handle before cycling 1–5
+  const isNative = variant === 6 || variant === 7;
+  const v = isNative ? variant : ((variant - 1) % 5) + 1;
   return (
     <>
       <ambientLight intensity={0.3} />
       <directionalLight position={[4, 4, 4]} intensity={0.8} />
-      <pointLight position={[-3, 2, 2]} intensity={0.4} color={accentColor} />
+      {!isNative && <pointLight position={[-3, 2, 2]} intensity={0.4} color={accentColor} />}
       {v === 1 && <ShardCluster accentColor={accentColor} />}
       {v === 2 && <WireframeSplit accentColor={accentColor} />}
       {v === 3 && <PolishedMonolith accentColor={accentColor} />}
       {v === 4 && <GlassGrid accentColor={accentColor} />}
       {(v === 0 || v === 5) && <ParticleAssembly accentColor={accentColor} />}
+      {v === 6 && <MobileCeramic emissiveColor="#B8D4FF" />}
+      {v === 7 && <MobileCeramic emissiveColor="#FFD0A0" />}
     </>
   );
 }

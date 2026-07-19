@@ -26,6 +26,18 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li className="pl-4 border-l border-border-main">
+              <Link href="/services/ios-app-development" className="text-text-2 hover:text-accent transition-colors text-sm relative inline-block group">
+                iOS App Development
+                <span className="absolute left-0 bottom-0 w-full h-[1px] bg-accent origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+              </Link>
+            </li>
+            <li className="pl-4 border-l border-border-main">
+              <Link href="/services/android-app-development" className="text-text-2 hover:text-accent transition-colors text-sm relative inline-block group">
+                Android App Development
+                <span className="absolute left-0 bottom-0 w-full h-[1px] bg-accent origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
+              </Link>
+            </li>
           </ul>
         </div>
         

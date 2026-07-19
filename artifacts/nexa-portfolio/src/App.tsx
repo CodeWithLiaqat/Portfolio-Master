@@ -12,6 +12,7 @@ import { CaseStudy } from '@/app/CaseStudy';
 import { Contact } from '@/app/Contact';
 import { Services } from '@/app/Services';
 import { ServiceDetail } from '@/app/ServiceDetail';
+import { ChildServiceDetail } from '@/app/ChildServiceDetail';
 import { Insights } from '@/app/Insights';
 import { InsightDetail } from '@/app/InsightDetail';
 import { Lab } from '@/app/Lab';
@@ -35,6 +36,8 @@ function Router() {
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:slug" component={CaseStudy} />
       <Route path="/services" component={Services} />
+      <Route path="/services/ios-app-development" component={ChildServiceDetail} />
+      <Route path="/services/android-app-development" component={ChildServiceDetail} />
       <Route path="/services/:slug" component={ServiceDetail} />
       <Route path="/insights" component={Insights} />
       <Route path="/insights/:slug" component={InsightDetail} />
