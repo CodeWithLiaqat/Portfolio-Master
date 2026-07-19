@@ -49,6 +49,10 @@ export const caseStudies = [
     stack: ['React', 'D3.js', 'WebSockets', 'Tailwind'],
     outcome: '67% reduction in time-to-insight, 99.9% uptime across all systems.',
     image: '/apex.webp',
+    gallery: [
+      '/apex-gallery-1.jpg',
+      '/apex-gallery-2.jpg',
+    ],
   },
   {
     slug: 'the-correspondent',
@@ -97,6 +101,11 @@ export const caseStudies = [
     stack: ['React Native', 'TypeScript', 'Reanimated 3', 'React Native Skia', 'HealthKit', 'Health Connect', 'Bluetooth LE'],
     outcome: '4.8-star rating on both the App Store and Google Play at launch, 22,000 installs in the first month, zero critical crash reports across 47 tested device/OS combinations, and a 71% day-30 retention rate — against an industry benchmark of 25%.',
     image: '/trckr.webp',
+    gallery: [
+      '/trckr-gallery-1.jpg',
+      '/trckr-gallery-2.jpg',
+      '/trckr-gallery-3.jpg',
+    ],
   }
 ];
 

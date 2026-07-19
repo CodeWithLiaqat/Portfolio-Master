@@ -8,6 +8,7 @@ import { caseStudies } from '@/content/data';
 import { useParams, Link } from 'wouter';
 import NotFound from '@/app/NotFound';
 import { MagneticButton } from '@/components/common/MagneticButton';
+import { CaseStudyGallery } from '@/components/common/CaseStudyGallery';
 import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -108,6 +109,11 @@ export function CaseStudy() {
             aria-hidden="true"
           />
         </div>
+
+        {/* Gallery — rendered when case study has additional screenshots */}
+        {study.gallery && study.gallery.length > 0 && (
+          <CaseStudyGallery images={study.gallery} title={study.title} />
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-32">
           <div className="md:col-span-4">
