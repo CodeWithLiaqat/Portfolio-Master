@@ -1,0 +1,91 @@
+# UPDATE PROMPT — CODEICS CONTENT, IMAGERY & POLISH PASS
+### Paste this entire document into Replit AI Agent on the existing CODEICS project
+
+## 0 · GROUND RULES
+
+Surgical update to a finished premium build. Do not rebuild, restructure, or "simplify" anything not named here. All tokens, easings, the Motion Bible, the Artifact system, and the existing architecture remain law — every addition must be built from the existing utilities in `motion/`, `three/`, and `styles/tokens.css`. Work in phases A–E below; verify each checklist yourself with evidence; stop for approval between phases. After every phase, the full regression list must pass: preloader, hero theme sequence, all acts, gallery, services stack, cursor, contact form delivery, WhatsApp button, map, reduced-motion mode, Lighthouse ≥95.
+
+---
+
+## 1 · INSIGHTS — FIVE RANKING-GRADE ARTICLES
+
+Write five original long-form articles as MDX in the existing content pipeline. **Target 900–1,200 words each** (600 is the floor, not the goal — thin content doesn't rank).
+
+**Titles and target keywords:**
+1. *AI Website Development in 2026: What Actually Changes for Your Business* — kw: "AI website development"
+2. *Why Headless WordPress Is the Future of Content-Heavy Websites* — kw: "headless WordPress development"
+3. *Premium Landing Pages That Convert: Anatomy of a High-Performing Page* — kw: "premium landing page design"
+4. *Modern Web Applications for Business Growth: Build vs. Buy in 2026* — kw: "custom web application development"
+5. *AI + 3D on the Web: How GSAP and Three.js Create Experiences Users Remember* — kw: "Three.js website development"
+
+**Structure per article (mandatory):** one H1 (the title) → hook opening that names a real client problem in the first two sentences → 4–6 H2 sections with H3s where needed → at least one concrete example, number, or mini-scenario per H2 → a short "FAQ" H2 with 3–4 questions (wired into `FAQPage` JSON-LD alongside the existing `Article` schema) → closing CTA linking to `/contact` and the matching `/services/:slug` page. Frontmatter: meta title ≤60 chars containing the keyword, meta description 140–155 chars written as a reason to click, slug, date, reading time. 2–3 internal links per article woven into sentences (services ↔ related articles), descriptive anchor text, never "click here".
+
+**Voice — this is the difference between ranking and reading like a bot.** Follow the site's copy rules: short declarative sentences, specifics over adjectives, claims backed by a number or mechanism, written to a founder or marketing director deciding where to spend budget. **Banned outright:** "In today's fast-paced digital landscape", "delve", "unleash", "elevate your brand", "seamless", "cutting-edge", "game-changer", "it's important to note", "in conclusion", rhetorical-question openers, and any paragraph that could be pasted into a different article unchanged. Vary sentence length. Take a position in each article — a real point of view is what generic AI text never has. Read each article aloud-in-your-head before committing; rewrite any sentence you've seen on a hundred agency blogs.
+
+---
+
+## 2 · ARTICLE IMAGERY — GENERATED FROM THE HOUSE VISUAL SYSTEM
+
+Do not source stock photos; there is no photograph that fits this brand. Instead, build covers from the project's own 3D system so they are literally impossible to mistake for stock:
+
+- Create a `CoverScene` component family in `three/scenes/`: each article gets one composition built from existing materials (transmission glass, iridescent thin-film, chrome, the particle field) with a per-topic recipe — e.g. Article 1: a shard cluster orbiting an emissive core (Iris lighting); Article 2: a wireframe-to-solid morph split composition (Aurum); Article 3: a single polished monolith with a hard key light (Garnet); Article 4: instanced glass panels in perspective grid; Article 5: the particle field mid-assembly with visible depth. Distinct silhouettes so the article index doesn't look repetitive.
+- From each scene, capture a **static render** (via `gl.domElement.toDataURL` at 2× in a dev route, saved as AVIF/WebP with dimensions): used for article cards, list hover-planes, OG images (1200×630 with the CODEICS wordmark overlay), and all reduced-motion/weak-GPU contexts. The live scene mounts only on the article hero, lazy, within the existing canvas budget.
+- Alt text describes the composition meaningfully; every image has explicit dimensions (no CLS).
+
+---
+
+## 3 · SITEWIDE TEXT-OVER-IMAGE READABILITY (audit every section)
+
+The Home hero keeps its bold treatment. Everywhere else, enforce this **readability stack** wherever text sits over imagery or the canvas:
+
+1. Text never sits directly on busy imagery. Either the media drops behind a scrim, or the text sits on a panel.
+2. **Scrim recipe (standard):** gradient overlay `linear-gradient(to top, color-mix(in oklab, var(--bg-0) 92%, transparent), color-mix(in oklab, var(--bg-0) 35%, transparent) 60%, transparent)` oriented toward the text block; media opacity capped at 0.35 behind body text.
+3. **Panel recipe (when the image should stay vivid):** the house glass surface behind the text block, with 12–20px breathing padding.
+4. Verify computed contrast after overlays: body ≥7:1, large display ≥4.5:1, in **all three themes** (Garnet is the risk case — check it explicitly).
+5. Audit route by route — every section of every page — and list in your report which sections you adjusted and which recipe you applied. Images should read as atmosphere that supports the words, never as competition.
+
+---
+
+## 4 · IMMERSIVE SCROLLING MEDIA (with a hard budget)
+
+Make key imagery feel alive without wrapping the site in canvases:
+
+- **Tier 1 — WebGL displacement planes** (the existing gallery material): case-study feature media and article hero media only. Pool the planes — max 3 mounted simultaneously; mount on approach, dispose on exit. Hover ripple + subtle RGB shift as already built; scroll adds a gentle depth-z drift via the shared progress store.
+- **Tier 2 — DOM treatment for everything else:** the existing `revealImage()` clip-path wipe on entry, plus scroll parallax of ±6–10% translateY (inner image scaled 1.12 inside an overflow-hidden frame so edges never show), scrubbed via ScrollTrigger, compositor-only properties.
+- Lighting continuity: Tier 1 planes tint slightly toward the active theme accent (existing theme store), so media participates in the theme cinema.
+- **Budget check:** fps baseline unchanged on mid-range mobile; no new canvas contexts beyond the root; reduced motion gets static images with a simple fade.
+
+---
+
+## 5 · PORTFOLIO — ADD THE LIVE PROJECT (describe it accurately)
+
+Add **Abdullah Restaurant — liaqatali.dev** as a real featured project. It is a fast-food ordering website; present it truthfully as a conversion-focused commerce build, which is genuinely impressive to clients:
+
+- **Overview copy (adapt, keep factual):** "A fast-food ordering experience built for speed and zero-friction checkout: customers browse a filterable menu, build a cart, and complete orders through pre-filled WhatsApp messages — no app download, no payment gateway friction. Installable as a PWA for repeat customers."
+- **Features to list:** WhatsApp-native ordering with per-item prefilled messages · cart system · menu categories with filtering · daily deals with countdown · PWA add-to-home install flow · reviews section · fully responsive, mobile-first.
+- **Tech chips:** inspect the live site and list only what you can verify (React SPA, Tailwind-style utility CSS, PWA manifest, custom domain deploy). Do not invent stack items.
+- **Preview media:** capture real screenshots of the live site (desktop hero + mobile menu view), process them into the house frame (device-agnostic rounded frame, e2 elevation, slight perspective) — no fake mockups.
+- **Presentation:** a featured-tier house card at the top of the portfolio grid — displacement hover on the screenshot, tilt + specular, mono index badge "LIVE", magnetic "Visit live site →" primary CTA opening `https://liaqatali.dev` in a new tab (`rel="noopener"`), plus a "Project details" ghost link to a full case-study page `/portfolio/abdullah-restaurant` following the existing case-study template (challenge → approach → build → outcome; outcome can honestly cite the frictionless WhatsApp flow and PWA repeat-use design rather than invented metrics).
+- If this project also deserves an Act Ⅳ featured-gallery slot on Home, add it there with the same screenshot plane.
+
+---
+
+## 6 · SITEWIDE COPY AUDIT
+
+Walk every page and score every headline, paragraph, and CTA against the voice rules and banned list in §1. Rewrite only what fails — do not churn copy that already works (regression risk, and good copy re-written usually gets worse). Priorities: any headline that could belong to another agency's site, any paragraph of filler, any CTA that doesn't name its action. Report a before/after table of what you changed.
+
+## 7 · UI CARD REFINEMENT (unify, don't decorate)
+
+Bring every card — service, portfolio, article, CTA — up to the house card standard (surface-2, e2, tilt ≤6°, cursor specular, content micro-parallax) and give featured items the featured tier (larger, displacement media, stronger glow cast). **Do not stack effects:** if a card already has tilt + specular + hover media, it does not also need borders glowing, badges pulsing, and gradient sweeps. After upgrading each card type, remove one effect if it reads as busy — restraint is the premium signal. Nothing flat, nothing carnival.
+
+---
+
+## 8 · PHASES & VERIFICATION
+
+- **Phase A — Articles (§1).** ✅ Five MDX articles live with schema validating (Rich Results test), internal links working, reading-time accurate, banned-phrase grep returns zero.
+- **Phase B — Cover system (§2).** ✅ Five distinct covers rendered; static captures wired to cards, OG tags, and reduced-motion contexts; no CLS; canvas budget respected.
+- **Phase C — Readability + scrolling media (§3–4).** ✅ Per-section audit report delivered; contrast spot-checks pasted for all three themes; fps baseline unchanged.
+- **Phase D — Portfolio project (§5).** ✅ Real screenshots captured; live link works; case-study page renders; no invented claims.
+- **Phase E — Copy audit + card refinement + full sweep (§6–7).** ✅ Before/after copy table; every card type screenshotted in all three themes; full regression list green; Lighthouse ≥95 all routes (paste scores); responsive matrix (320→1920 + landscape phone) clean.
+
+Begin with Phase A. Do not proceed past any phase without its evidence.

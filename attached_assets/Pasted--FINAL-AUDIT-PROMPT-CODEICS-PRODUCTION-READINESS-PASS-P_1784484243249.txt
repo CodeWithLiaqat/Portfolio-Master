@@ -1,0 +1,65 @@
+# FINAL AUDIT PROMPT — CODEICS PRODUCTION-READINESS PASS
+### Paste this entire document into Replit AI Agent on the existing CODEICS project
+
+## 0 · AUDIT DISCIPLINE (this overrides your instinct to "improve" things)
+
+This is a **launch audit of a finished premium build**, not another design pass. You will work in three strict stages and never skip ahead:
+
+1. **STAGE 1 — INVENTORY & AUDIT (no code changes).** Walk the entire product per the checklists below and produce a numbered **Issue Log**: for each defect — route, section, description, severity (Blocker / Major / Minor / Polish), and proposed fix in one line. Things that already meet the standard are marked ✅ PASS and **must not be touched**. Present the log and stop for approval.
+2. **STAGE 2 — FIXES.** Fix only logged issues, in severity order, referencing issue numbers in your commits. If fixing one issue reveals another, add it to the log — never fix silently. Anything already marked PASS is frozen: do not rewrite passing copy, restyle passing cards, or re-choreograph passing animations. Re-audited churn is a regression, not an improvement.
+3. **STAGE 3 — VERIFICATION.** Re-run every checklist, paste the evidence pack (§9), and declare done. **Stop condition:** all Blockers and Majors fixed, all Minors fixed or explicitly deferred with reason, evidence pack complete. Do not loop on Polish items chasing perfection — if in doubt, remove an effect rather than add one.
+
+Nothing may be rebuilt. The tokens, Motion Bible, Artifact system, theme sequence, and architecture remain law.
+
+---
+
+## 1 · FUNCTIONAL AUDIT — every interactive element
+
+Build a link/action table (element → route → expected → actual → PASS/FAIL) covering: every nav item and overlay-menu link · footer sitemap and socials · LinkedIn (`linkedin.com/in/codeics`) and GitHub (`github.com/CodeWithLiaqat`) open in new tabs with `rel="noopener"` · WhatsApp button opens `wa.me/923045722622` with the prefilled message on desktop and mobile · `tel:` and `mailto:` links correct · every CTA on every page routes correctly · theme orbs (all three + auto) work and persist · portfolio "Visit live site" reaches `https://liaqatali.dev` · every article, case-study, service detail, Lab, FAQ, Legal, and the custom 404 route renders (hit a garbage URL to prove it) · back-to-top, skip-link, and scroll cue work. **Contact form:** send a real submission and confirm the email arrives; verify validation messages, loading state, success state (only after API confirmation), and the error path; confirm honeypot and rate limit still active; confirm `RESEND_API_KEY` lives only in Secrets.
+
+## 2 · ANIMATION & 3D QA
+
+Scroll every route top to bottom at normal and fast speed: preloader (once per session, skippable, no flicker) · hero Aurum→Iris→Garnet scrub with clean pin release into Act Ⅱ · every pinned section releases without jump or dead space · no ScrollTrigger misfires after route changes (navigate between all routes, then scroll — refresh triggers must survive) · gallery drift, services stack, constellation counters (fire once, ≥50% in view), beacon finale, magnetic buttons, cursor morphs · displacement planes mount/dispose correctly (max 3 pooled) · fps: record desktop and mid-mobile numbers on Home and Portfolio; must match the established baseline · memory flat after 10× full-site navigation (no leaked contexts, geometries, or listeners) · weak-GPU fallback still renders the static poster gracefully · **reduced-motion mode** walked in full: static compositions, opacity fades, no pin, no cursor, no pulse — and still beautiful.
+
+## 3 · IMAGERY AUDIT
+
+Every image on the site must be either (a) a generated house visual (Artifact-system cover/render), (b) a real screenshot of a real project, or (c) removed. Any remaining generic/stock-looking image is a Major: replace it with a `CoverScene`-derived render matching its context — AI Website Development, Headless WordPress, Landing Pages, Mobile Apps, Web Applications each already have a material recipe; reuse those, don't invent new aesthetics. All images: AVIF/WebP with fallback, responsive `srcset`, explicit dimensions (zero CLS), lazy below the fold, meaningful alt text (describe the composition or the project, never "image of").
+
+## 4 · READABILITY AUDIT
+
+Re-verify the readability stack section by section in **all three themes** (Garnet is the risk case): hero exempt; everywhere else text sits on a scrim (media ≤0.35 opacity behind body text) or a glass panel; computed contrast after overlays ≥7:1 body / ≥4.5:1 large display. Log any section where imagery competes with words; apply the standard scrim or panel recipe — never a new bespoke treatment.
+
+## 5 · CARD & UI AUDIT
+
+Check every card type (service, portfolio, article, CTA, form panels) against the house standard: surface-2, e2 elevation, tilt ≤6° with spring, cursor specular, content micro-parallax; featured tier where designated. Two failure modes, both logged: **flat** (missing depth/hover) and **carnival** (stacked effects — if a card has tilt + specular + hover media, it needs nothing else; strip extra glows, pulses, and gradient sweeps). Consistency beats novelty at this stage: siblings must share identical radii, spacing, and hover physics.
+
+## 6 · COPY AUDIT
+
+Grep the banned list first: "in today's fast-paced digital landscape", "delve", "unleash", "elevate", "seamless", "cutting-edge", "game-changer", "it's important to note", "in conclusion", "Learn more", "Submit" — every hit is an issue. Then read every headline and paragraph: anything generic, robotic, repetitive, or claimable by any other agency gets rewritten in the house voice (short, declarative, specific, one point of view). Passing copy is frozen. Verify the five Insights articles still read human — openings hook with a client problem, each H2 carries a concrete example, FAQs are real questions. Deliver a before/after table for every change.
+
+## 7 · SEO AUDIT
+
+Per route: unique title ≤60ch with the page's keyword · meta description 140–155ch written to earn the click · canonical · OG/Twitter tags pointing at the branded 1200×630 images (validate with a card preview tool) · exactly one H1, ordered heading tree · JSON-LD validates in the Rich Results test (`ProfessionalService` + `Person` sitewide with the Pindi Gheb address, `Article` + `FAQPage` on articles, `Service`, `FAQPage`, `BreadcrumbList` where applicable) · sitemap.xml lists every route and only real routes, robots.txt sane · internal links: every service page links to related articles and case studies and vice versa; no orphan pages; no broken anchors · prerendered HTML verified with JavaScript disabled on every static route · zero "nexa" remnants (re-grep, case-insensitive, and check deployed HTML source).
+
+## 8 · PERFORMANCE, ACCESSIBILITY & PRODUCTION HYGIENE
+
+**Lighthouse (throttled, all four categories, every route):** target ≥95; paste all scores. Improve via legitimate means only — asset trimming, preloads, chunk boundaries, image sizing — never by deleting animations or design features. Budgets still hold: initial JS ≤180KB gz, lazy 3D chunk ≤450KB gz, LCP ≤2.0s, CLS ≤0.05, INP ≤200ms.
+**Accessibility:** axe on every route, zero critical issues; keyboard-walk the entire site including overlay menu (trap + ESC + focus return), theme orbs, accordions, form, map (must not trap), WhatsApp button (44px+, labeled); `focus-visible` visible on every interactive element; canvas `aria-hidden` with meaning in DOM; `aria-live` on form status.
+**Production hygiene:** console completely clean on every route (no errors, warnings, or logs) · security headers present (CSP, X-Content-Type-Options, Referrer-Policy) · brotli compression and immutable caching on hashed assets · no secrets in code or client bundle (grep the build output for the API key) · favicon/manifest/OG complete · Legal pages current with CODEICS details · cross-browser: Chrome, Firefox, Safari including iOS (View Transitions fallback verified, `svh/dvh` correct, backdrop-filter rendering) · responsive matrix 320 / 375 / 390 / 768 / 820 / 1024 / 1280 / 1440 / 1920 + one landscape phone: zero overflow, zero cramped targets, WhatsApp button clear of orbs and content.
+
+---
+
+## 9 · EVIDENCE PACK (required to declare done)
+
+1. The full Issue Log with final status per item.
+2. Functional link/action table, all PASS.
+3. Confirmation of a real received contact email.
+4. Lighthouse scores per route (all four categories).
+5. axe summary per route (zero critical).
+6. fps + memory readings vs. baseline.
+7. Copy before/after table; banned-phrase grep output (zero).
+8. `nexa` grep output (zero) from source and deployed HTML.
+9. Rich Results validation status per schema type.
+10. Responsive matrix sign-off and cross-browser notes.
+
+Begin Stage 1 now. Do not write a single code change until the Issue Log is approved.
