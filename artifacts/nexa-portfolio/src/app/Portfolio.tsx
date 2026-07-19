@@ -11,6 +11,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { revealLines } from '@/motion/reveals';
 import { useSceneStore } from '@/stores/scene';
+import { MagneticButton } from '@/components/common/MagneticButton';
 
 const CATEGORIES = ['All', 'AI & SaaS', 'Ecommerce', 'Web Apps', 'Editorial', 'Mobile'];
 
@@ -18,7 +19,7 @@ export function Portfolio() {
   useSmoothScroll();
   useSEO({
     title: 'Selected Works — Case Studies',
-    description: 'Browse NEXA\'s portfolio of cinematic web experiences — AI SaaS, luxury ecommerce, editorial, and mobile. Each project drives measurable outcomes.',
+    description: 'Browse CODEICS\'s portfolio of cinematic web experiences — AI SaaS, ecommerce, editorial, and mobile. Each project drives measurable outcomes.',
     canonicalPath: '/portfolio',
   });
   const [activeFilter, setActiveFilter] = useState('All');
@@ -27,11 +28,14 @@ export function Portfolio() {
   const metricsRef = useRef<HTMLDivElement>(null);
   const setHoveredProject = useSceneStore(s => s.setHoveredProject);
 
-  // Clear hovered project on unmount so GalleryPlane fades out
   useEffect(() => () => setHoveredProject(null), [setHoveredProject]);
 
-  const filteredStudies = caseStudies.filter(study => 
-    activeFilter === 'All' ? true : study.category === activeFilter
+  // Featured (live) project — pinned above the filter list
+  const featuredProject = caseStudies.find(s => s.featured);
+
+  // Filtered list excludes the featured project to avoid duplication
+  const filteredStudies = caseStudies.filter(study =>
+    (activeFilter === 'All' ? true : study.category === activeFilter) && !study.featured
   );
 
   useGSAP(() => {
@@ -48,10 +52,10 @@ export function Portfolio() {
         innerHTML: target,
         duration: 2,
         snap: { innerHTML: 1 },
-        ease: "power2.out",
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: metricsRef.current,
-          start: "top 80%",
+          start: 'top 80%',
           once: true,
         },
         onUpdate() {
@@ -60,8 +64,6 @@ export function Portfolio() {
       });
     });
   }, { scope: metricsRef });
-
-  const featuredStudy = caseStudies.find(s => s.slug === 'luminary-ai');
 
   return (
     <div className="bg-bg-0 min-h-screen text-text-main relative">
@@ -80,19 +82,70 @@ export function Portfolio() {
           </div>
         </header>
 
+        {/* Featured Live Project */}
+        {featuredProject && (
+          <section className="mb-24">
+            <div className="flex items-center gap-4 mb-8">
+              <span className="text-eyebrow text-text-2">Featured Live Project</span>
+              <span className="text-xs font-mono px-3 py-1 rounded-full bg-accent/10 text-accent border border-accent/30 tracking-wider uppercase">Live</span>
+            </div>
+            <div
+              className="group relative rounded-3xl overflow-hidden border border-border-main p-12 md:p-16 transition-all duration-700 hover:border-accent/40"
+              onMouseEnter={() => setHoveredProject(featuredProject.slug)}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              {/* Hover glow */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--color-surface),_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden="true" />
+
+              <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-12">
+                <div className="flex-1">
+                  <h2 className="text-4xl md:text-6xl font-display mb-6 group-hover:text-accent transition-colors duration-500">{featuredProject.title}</h2>
+                  <p className="text-xl text-text-2 max-w-2xl mb-8">{featuredProject.approach}</p>
+                  <div className="flex flex-wrap gap-3 mb-12">
+                    {featuredProject.stack.map(tech => (
+                      <span key={tech} className="text-xs font-mono text-text-2 uppercase tracking-wider bg-surface px-3 py-1 rounded-full">{tech}</span>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-6 items-center">
+                    {featuredProject.liveUrl && (
+                      <a
+                        href={featuredProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block"
+                      >
+                        <MagneticButton variant="primary">Visit live site →</MagneticButton>
+                      </a>
+                    )}
+                    <Link href={`/portfolio/${featuredProject.slug}`}>
+                      <MagneticButton variant="secondary">Project details</MagneticButton>
+                    </Link>
+                  </div>
+                </div>
+                <div className="md:text-right flex flex-col gap-4 items-start md:items-end">
+                  <span className="font-mono text-sm px-4 py-2 rounded-full border border-accent/30 text-accent">
+                    {featuredProject.metric}
+                  </span>
+                  <span className="font-mono text-xs text-text-2 uppercase tracking-wider">{featuredProject.category}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Filter Bar */}
         <div className="flex flex-wrap gap-8 mb-16 relative">
           {CATEGORIES.map(cat => (
-            <button 
+            <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
               className={`relative font-mono text-sm uppercase tracking-wider pb-2 transition-colors ${activeFilter === cat ? 'text-text-main' : 'text-text-2 hover:text-text-main'}`}
             >
               {cat}
               {activeFilter === cat && (
-                <motion.div 
-                  layoutId="filter-indicator" 
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" 
+                <motion.div
+                  layoutId="filter-indicator"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent"
                 />
               )}
             </button>
@@ -117,12 +170,9 @@ export function Portfolio() {
                   onMouseEnter={() => setHoveredProject(study.slug)}
                   onMouseLeave={() => setHoveredProject(null)}
                 >
-                  
-                  {/* Hover background illuminate */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--color-surface),_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_var(--color-surface),_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden="true" />
 
                   <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-8 w-full">
-                    
                     <div className="flex-1 flex gap-8">
                       <span className="font-mono text-text-2 mt-4 hidden md:block">0{idx + 1}</span>
                       <div>
@@ -130,7 +180,6 @@ export function Portfolio() {
                         <p className="text-xl text-text-2 max-w-xl">{study.challenge}</p>
                       </div>
                     </div>
-
                     <div className="flex-1 md:text-right flex flex-col justify-between items-start md:items-end">
                       <span className="font-mono text-sm px-4 py-2 rounded-full border border-border-main mb-8 group-hover:border-accent group-hover:text-accent transition-colors duration-500">
                         {study.metric}
@@ -142,7 +191,6 @@ export function Portfolio() {
                       </div>
                     </div>
                   </div>
-
                 </Link>
               </motion.div>
             ))}
@@ -152,47 +200,22 @@ export function Portfolio() {
           )}
         </div>
 
-        {/* Featured Highlight */}
-        {featuredStudy && (
-          <section className="mb-48">
-            <h2 className="text-2xl font-display mb-8">Featured Case</h2>
-            <div className="w-full aspect-video rounded-3xl overflow-hidden relative mb-12">
-               <div className="absolute inset-0 bg-accent/10 mix-blend-overlay z-10"></div>
-               <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" alt={featuredStudy.title} className="w-full h-full object-cover" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-               <div>
-                  <h3 className="text-eyebrow text-accent mb-4">The Challenge</h3>
-                  <p className="text-lg">{featuredStudy.challenge}</p>
-               </div>
-               <div>
-                  <h3 className="text-eyebrow text-accent mb-4">The Approach</h3>
-                  <p className="text-text-2">{featuredStudy.approach}</p>
-               </div>
-               <div>
-                  <h3 className="text-eyebrow text-accent mb-4">The Outcome</h3>
-                  <p className="text-xl font-display">{featuredStudy.outcome}</p>
-               </div>
-            </div>
-          </section>
-        )}
-
         {/* Aggregate Metrics Strip */}
         <section ref={metricsRef} className="py-24 border-y border-border-main mb-48">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-             {[
-               { val: 47, suffix: '+', label: 'Projects Delivered' },
-               { val: 97, suffix: '', label: 'Avg Lighthouse' },
-               { val: 94, suffix: '%', label: 'Client Retention' },
-               { val: 6, suffix: 'yrs', label: 'In Business' }
-             ].map((m, i) => (
-                <div key={i}>
-                  <div className="text-5xl md:text-7xl font-display mb-4 text-accent">
-                    <span className="metric-number" data-target={m.val} data-suffix={m.suffix}>0</span>
-                  </div>
-                  <div className="text-eyebrow text-text-2">{m.label}</div>
+            {[
+              { val: 47, suffix: '+', label: 'Projects Delivered' },
+              { val: 97, suffix: '', label: 'Avg Lighthouse' },
+              { val: 94, suffix: '%', label: 'Client Retention' },
+              { val: 6, suffix: 'yrs', label: 'In Business' }
+            ].map((m, i) => (
+              <div key={i}>
+                <div className="text-5xl md:text-7xl font-display mb-4 text-accent">
+                  <span className="metric-number" data-target={m.val} data-suffix={m.suffix}>0</span>
                 </div>
-             ))}
+                <div className="text-eyebrow text-text-2">{m.label}</div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -200,7 +223,7 @@ export function Portfolio() {
         <section className="mb-32 bg-surface p-12 md:p-24 rounded-[3rem]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <div>
-              <p className="text-2xl md:text-3xl font-display leading-relaxed mb-8">"NEXA didn't just build us a website. They built us a competitive advantage. The cinematic approach transformed how investors and users perceive our deep-tech offering."</p>
+              <p className="text-2xl md:text-3xl font-display leading-relaxed mb-8">"CODEICS didn't just build us a website. They built us a competitive advantage. The cinematic approach transformed how investors and users perceive our deep-tech offering."</p>
               <div className="text-sm font-mono uppercase tracking-wider text-text-2">Head of Growth, Luminary AI</div>
             </div>
             <div>

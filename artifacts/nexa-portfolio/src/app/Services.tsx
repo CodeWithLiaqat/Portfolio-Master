@@ -54,7 +54,7 @@ export function Services() {
       <main id="main-content" className="relative z-10">
         <header className="pt-48 pb-24 max-w-7xl mx-auto px-6 relative z-10">
           <h1 className="text-fluid-display font-bold mb-6 leading-[0.95]">The Forge</h1>
-          <p className="text-xl text-text-2 max-w-2xl">Specialized capabilities to build next-generation digital experiences.</p>
+          <p className="text-xl text-text-2 max-w-2xl">Specialized capabilities for founders and agencies who demand more from the web.</p>
         </header>
 
         {/* Sticky Deck */}
@@ -111,12 +111,16 @@ export function Services() {
                 { title: 'Retainer', subtitle: 'Continuous evolution.', desc: 'A dedicated block of hours each month to steadily improve your digital presence, run A/B tests, and add new capabilities.', price: 'From £4,000/mo' },
                 { title: 'Partnership', subtitle: 'Technical co-founder.', desc: 'Deep technical partnership for early-stage startups. We handle the entire engineering vertical in exchange for a mix of capital and equity.', price: 'Variable' }
               ].map(model => (
-                <div key={model.title} className="bg-bg-0 p-10 rounded-[2rem] border border-border-main flex flex-col h-full hover:border-accent transition-colors duration-500">
-                  <h3 className="text-2xl font-display mb-2">{model.title}</h3>
-                  <p className="text-sm font-mono text-accent mb-8 uppercase tracking-wider">{model.subtitle}</p>
-                  <p className="text-text-2 flex-grow mb-12">{model.desc}</p>
-                  <div className="pt-8 border-t border-border-main font-mono text-sm">
-                    {model.price}
+                <div key={model.title} className="group relative bg-bg-0 p-10 rounded-[2rem] border border-border-main flex flex-col h-full hover:border-accent/50 transition-all duration-500 overflow-hidden hover:elevation-2">
+                  {/* Cursor specular */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_color-mix(in_oklab,_var(--color-accent)_6%,_transparent),_transparent_65%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden="true" />
+                  <div className="relative z-10 flex flex-col h-full">
+                    <h3 className="text-2xl font-display mb-2">{model.title}</h3>
+                    <p className="text-sm font-mono text-accent mb-8 uppercase tracking-wider">{model.subtitle}</p>
+                    <p className="text-text-2 flex-grow mb-12">{model.desc}</p>
+                    <div className="pt-8 border-t border-border-main font-mono text-sm">
+                      {model.price}
+                    </div>
                   </div>
                 </div>
               ))}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const BASE_URL = 'https://nexa.studio';
+const BASE_URL = 'https://codeics.com';
 
 // ─── Schema type builders ────────────────────────────────────────────────────
 
@@ -8,10 +8,10 @@ export function buildPerson() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'NEXA Studio',
+    name: 'CODEICS',
     url: BASE_URL,
     jobTitle: 'AI Web Developer',
-    sameAs: ['https://twitter.com/nexastudio', 'https://github.com/nexastudio'],
+    sameAs: ['https://twitter.com/codeics', 'https://github.com/codeics'],
   };
 }
 
@@ -19,7 +19,7 @@ export function buildProfessionalService() {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'NEXA',
+    name: 'CODEICS',
     url: BASE_URL,
     description: 'Cinematic AI-era web experiences for founders and agencies demanding Awwwards-quality craft.',
     areaServed: 'Worldwide',
@@ -40,7 +40,7 @@ export function buildService(service: {
     name: service.name,
     description: service.description,
     url: `${BASE_URL}/services/${service.slug}`,
-    provider: { '@type': 'Organization', name: 'NEXA' },
+    provider: { '@type': 'Organization', name: 'CODEICS' },
     ...(service.price ? { offers: { '@type': 'Offer', price: service.price } } : {}),
   };
 }
@@ -61,11 +61,11 @@ export function buildArticle(article: {
     datePublished: article.date,
     author: {
       '@type': 'Person',
-      name: article.author ?? 'NEXA Studio',
+      name: article.author ?? 'CODEICS',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'NEXA',
+      name: 'CODEICS',
       url: BASE_URL,
     },
   };

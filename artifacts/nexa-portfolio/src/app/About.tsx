@@ -102,7 +102,7 @@ export function About() {
                 { year: 2020, text: "Moved into WebGL and creative frontend. Realized performance is a design feature." },
                 { year: 2022, text: "Lead engineer at a boutique studio. Delivered 40+ SOTD level projects." },
                 { year: 2024, text: "Founded NEXA. Embraced AI as a multiplier for craft." },
-                { year: 2026, text: "Operating at the bleeding edge of the cinematic web." }
+                { year: 2026, text: "Building at the forefront of cinematic web craft." }
               ].map((item) => (
                 <div key={item.year} className="relative">
                   <div className="absolute w-3 h-3 rounded-full bg-accent -left-[38px] top-1 shadow-[0_0_10px_var(--glow)]"></div>

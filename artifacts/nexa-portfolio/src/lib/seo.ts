@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-const SITE_NAME = 'NEXA';
-const BASE_URL = 'https://nexa.studio';
+const SITE_NAME = 'CODEICS';
+const BASE_URL = 'https://codeics.com';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-default.jpg`;
 
 export interface SEOOptions {
