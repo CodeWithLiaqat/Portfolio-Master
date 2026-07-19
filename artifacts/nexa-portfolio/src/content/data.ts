@@ -12,7 +12,7 @@ export const caseStudies = [
     approach: 'We built a PWA-first ordering experience around the friction-free WhatsApp checkout. Customers browse a filterable menu, build a cart, and complete their order through a pre-filled WhatsApp message — the entire flow is four taps on mobile. Daily deals with countdown timers create urgency without gimmicks.',
     stack: ['React', 'PWA', 'WhatsApp Integration', 'Tailwind CSS'],
     outcome: 'Frictionless ordering via WhatsApp with cart persistence, daily deal countdowns, and a PWA install flow that keeps repeat customers a single tap away.',
-    image: '/abdullah.jpg',
+    image: '/abdullah.webp',
   },
   {
     slug: 'luminary-ai',
@@ -24,7 +24,7 @@ export const caseStudies = [
     approach: 'We built a cinematic landing page using R3F that visualizes their neural networks as elegant, calm, flowing geometry. The complexity is hidden behind a simple, intuitive scroll narrative.',
     stack: ['Next.js', 'React Three Fiber', 'Contentful', 'GSAP'],
     outcome: '340% increase in trial signups, 2.1s LCP, Awwwards SOTD.',
-    image: '/luminary.jpg',
+    image: '/luminary.webp',
   },
   {
     slug: 'maison-calloway',
@@ -36,7 +36,7 @@ export const caseStudies = [
     approach: 'Leveraged high-resolution WebGL textures and fluid Lenis scroll to emulate the feeling of running your hand over bespoke furniture. Micro-interactions are timed to absolute perfection.',
     stack: ['Headless Shopify', 'Three.js', 'GSAP', 'React'],
     outcome: '28% higher AOV vs. previous site, 4.1s avg. session time.',
-    image: '/maison.jpg',
+    image: '/maison.webp',
   },
   {
     slug: 'apex-finance',
@@ -48,7 +48,7 @@ export const caseStudies = [
     approach: 'A completely rebuilt frontend architecture focusing on absolute clarity. We used a muted palette with exact, high-contrast highlights for critical data changes.',
     stack: ['React', 'D3.js', 'WebSockets', 'Tailwind'],
     outcome: '67% reduction in time-to-insight, 99.9% uptime across all systems.',
-    image: '/apex.jpg',
+    image: '/apex.webp',
   },
   {
     slug: 'the-correspondent',
@@ -60,7 +60,7 @@ export const caseStudies = [
     approach: 'A decoupled headless architecture allowing editors absolute freedom in layout without breaking the strict, luxurious typographical system.',
     stack: ['Next.js', 'Headless WP', 'MDX', 'Framer Motion'],
     outcome: '2.4× reader retention, sub-800ms TTFB globally.',
-    image: '/correspondent.jpg',
+    image: '/correspondent.webp',
   },
   {
     slug: 'vela',
@@ -72,7 +72,7 @@ export const caseStudies = [
     approach: 'A mobile-first launch site featuring interactive 3D elements of their hardware, responding to device orientation and scroll.',
     stack: ['R3F', 'GSAP', 'Mobile-first', 'Zustand'],
     outcome: '18k app downloads in launch week, #1 Product Hunt.',
-    image: '/vela.jpg',
+    image: '/vela.webp',
   },
   {
     slug: 'fractional',
@@ -84,7 +84,7 @@ export const caseStudies = [
     approach: 'Using our cinematic scroll framework, we broke down their offering into easily digestible, highly impactful statements supported by restrained motion.',
     stack: ['React', 'GSAP', 'Lenis', 'Vite'],
     outcome: '41% conversion lift (A/B tested), qualified leads up 220%.',
-    image: '/fractional.jpg',
+    image: '/fractional.webp',
   },
   {
     slug: 'trckr',
@@ -96,7 +96,7 @@ export const caseStudies = [
     approach: 'We chose React Native with Reanimated 3 and Skia as the rendering layer, which let a single codebase deliver 60 fps custom chart animations on both platforms without sacrificing access to HealthKit on iOS or Health Connect on Android. The architecture separates data ingestion (a native module per platform), business logic (shared TypeScript), and UI (shared Skia canvas) — so the performance-critical paths are native while the product logic ships once. Bluetooth device pairing, background workout tracking, and push notification scheduling all use platform-appropriate native APIs wrapped behind a clean JavaScript interface.',
     stack: ['React Native', 'TypeScript', 'Reanimated 3', 'React Native Skia', 'HealthKit', 'Health Connect', 'Bluetooth LE'],
     outcome: '4.8-star rating on both the App Store and Google Play at launch, 22,000 installs in the first month, zero critical crash reports across 47 tested device/OS combinations, and a 71% day-30 retention rate — against an industry benchmark of 25%.',
-    image: '/trckr.jpg',
+    image: '/trckr.webp',
   }
 ];
 
