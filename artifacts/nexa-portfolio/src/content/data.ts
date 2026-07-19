@@ -85,6 +85,18 @@ export const caseStudies = [
     stack: ['React', 'GSAP', 'Lenis', 'Vite'],
     outcome: '41% conversion lift (A/B tested), qualified leads up 220%.',
     image: '/fractional.jpg',
+  },
+  {
+    slug: 'trckr',
+    title: 'TRCKR',
+    category: 'Native App',
+    metric: '4.8★ on both stores',
+    featured: false,
+    challenge: 'A sports analytics startup needed a cross-platform native app that could ingest real-time biometric data, visualise it beautifully, and feel indistinguishable from a premium first-party app — on iOS and Android simultaneously, within a 16-week timeline.',
+    approach: 'We chose React Native with Reanimated 3 and Skia as the rendering layer, which let a single codebase deliver 60 fps custom chart animations on both platforms without sacrificing access to HealthKit on iOS or Health Connect on Android. The architecture separates data ingestion (a native module per platform), business logic (shared TypeScript), and UI (shared Skia canvas) — so the performance-critical paths are native while the product logic ships once. Bluetooth device pairing, background workout tracking, and push notification scheduling all use platform-appropriate native APIs wrapped behind a clean JavaScript interface.',
+    stack: ['React Native', 'TypeScript', 'Reanimated 3', 'React Native Skia', 'HealthKit', 'Health Connect', 'Bluetooth LE'],
+    outcome: '4.8-star rating on both the App Store and Google Play at launch, 22,000 installs in the first month, zero critical crash reports across 47 tested device/OS combinations, and a 71% day-30 retention rate — against an industry benchmark of 25%.',
+    image: '/trckr.jpg',
   }
 ];
 
@@ -192,7 +204,7 @@ export const childServices: ChildService[] = [
       }
     ],
     relatedInsightSlug: 'core-web-vitals-craft',
-    relatedCaseStudySlug: 'vela',
+    relatedCaseStudySlug: 'trckr',
   },
   {
     slug: 'android-app-development',
@@ -232,7 +244,7 @@ export const childServices: ChildService[] = [
       }
     ],
     relatedInsightSlug: 'gsap-threejs-web-experiences',
-    relatedCaseStudySlug: 'vela',
+    relatedCaseStudySlug: 'trckr',
   }
 ];
 
