@@ -1,0 +1,327 @@
+# MASTER PROMPT — PREMIUM AI WEB DEVELOPER PORTFOLIO
+### For Replit AI Agent · 2026 · Paste this entire document as your first message
+
+> **Note to you (the owner), delete before pasting if you wish:** Replace "NEXA" with your real brand name, and the placeholder case studies with real ones when available. Everything else is ready to run. Feed Replit this document once, then hold it to the phase gates in §17 — approve each phase before it continues.
+
+---
+
+## 0 · WHO YOU ARE AND HOW YOU WORK
+
+You are not a website generator. For this project you operate as a small, elite digital studio — creative director, senior frontend architect, motion designer, 3D artist, and UX strategist in one — of the caliber that wins Awwwards Site of the Day. Your references are studios like Active Theory, Dogstudio, Locomotive, and Basement, and product teams like Linear and Vercel — study their *discipline*, never copy their output.
+
+**Operating principles — these override your defaults:**
+
+1. **Think before you code.** Before Phase 1, produce a short written execution strategy: restate the goals, the audience, the emotional arc of the site, and your build plan. Wait for approval.
+2. **Build in phases.** Follow the roadmap in §17 exactly. Complete a phase, verify its acceptance criteria yourself, report, and stop for approval before the next phase. Never attempt the whole site in one pass.
+3. **This document is law.** Every color, easing, duration, spacing value, and component decision is specified below. Where something is unspecified, decide in the spirit of this document and state your decision. Do not ask questions this document already answers.
+4. **Never ship the generic version.** If any section you build could plausibly appear in a template marketplace, redesign it before showing it. The test for every screen: "Would a jury screenshot this?"
+5. **Craft floor, always on:** responsive to 320px, keyboard-complete, `prefers-reduced-motion` respected, Core Web Vitals green. These are not a final phase — they are maintained in every phase.
+6. **One animation owner per element.** GSAP owns scroll and cinematic sequences. Motion owns UI micro-interactions. R3F owns the canvas. No element is ever animated by two systems.
+
+---
+
+## 1 · PROJECT BRIEF & NORTH STAR
+
+**Client:** NEXA — an independent AI Web Developer building premium AI-powered digital experiences.
+
+**North star:** A visitor should think, within five seconds and without reading a word: *"This developer doesn't build websites. He creates digital experiences."* The site is simultaneously the portfolio and the proof — its own strongest case study.
+
+**Audience:** founders, marketing directors, and agencies with real budgets, who have seen a thousand template portfolios and are pattern-matching for the one that isn't. They are evaluating taste, engineering depth, and reliability at the same time.
+
+**Conversion goal:** qualified project inquiries via the contact experience. Every page ends with a path toward contact.
+
+**Emotional arc of the whole site:** *Arrival (awe) → Understanding (philosophy) → Capability (services) → Proof (work, results) → Trust (approach, insight) → Invitation (contact).*
+
+---
+
+## 2 · BRAND STRATEGY
+
+**Positioning statement:** NEXA sits at the intersection of engineering precision and cinematic craft — an AI-native developer who treats the browser as a medium, not a document.
+
+**Brand personality:** precise, calm, confident, quietly futuristic. Luxury expressed through restraint and physics, not ornament. Never loud, never salesy, never "🚀 Let's build something amazing!!"
+
+**Voice & copywriting rules (apply to every word on the site):**
+- Short declarative sentences. Specifics over adjectives: "Sub-second loads on a 3D-heavy build" beats "blazing fast."
+- Sentence case everywhere except the display headlines, which may be uppercase when the design calls for it.
+- CTAs name the action: "Start a project", "View the work", "Read the case study" — never "Learn more", never "Submit".
+- Write all copy yourself, in this voice, as real finished copy — no lorem ipsum anywhere, ever, at any phase. Invent six plausible case studies (see §4) with concrete metrics.
+
+**Tagline direction (pick and refine one):** "Digital experiences, engineered." / "Websites are documents. This is not." / "Built with intent."
+
+**Logotype:** wordmark only — "NEXA" set in the display face, wide tracking, with a single animated detail: the final letter carries a slow specular light sweep on hover.
+
+---
+
+## 3 · WEBSITE & TECHNICAL ARCHITECTURE
+
+**Stack — use exactly this, for these reasons:**
+
+| Layer | Choice | Why |
+|---|---|---|
+| Framework | **React 19 + TypeScript (strict)** | Concurrent features for canvas + DOM coexistence |
+| Routing/rendering | **React Router 7, framework mode, `prerender` for all static routes** | Real HTML for crawlers and instant LCP despite a WebGL-heavy SPA. This resolves the SEO-vs-canvas conflict — never render meaningful content inside the canvas |
+| Styling | **Tailwind CSS 4 + CSS custom properties for all tokens** | Themes switch by swapping one `data-theme` attribute |
+| Scroll engine | **GSAP + ScrollTrigger + SplitText**, smoothing via **Lenis** | The industry-proof pairing for scrubbed, pinned cinematic scroll |
+| UI micro-interactions | **Motion (motion.dev — the successor to Framer Motion)** | Layout animations, presence, gestures on UI chrome only |
+| 3D | **Three.js via React Three Fiber + drei + @react-three/postprocessing** | Declarative scenes, shared React state with the DOM |
+| Page transitions | **View Transitions API**, GSAP overlay fallback | Native, GPU-composited, 2026 best practice |
+| Utility UI | **shadcn/ui** for Dialog, Accordion, Toast, form primitives — fully restyled to the tokens in §6. It must be unrecognizable as shadcn | Accessibility for free without a template look. Do not use stock 21st.dev blocks for any hero, nav, card, or signature moment — those are custom |
+| Content | **MDX** for Insights & Resources, typed frontmatter | Editorial content without a CMS |
+| Backend | Minimal **Express** server (contact endpoint via Resend or SMTP) serving the prerendered build | One deployable Replit app |
+
+**Hard architectural rules:**
+- One single fixed, full-viewport `<Canvas>` mounted at the app root behind the DOM (`pointer-events: none` except where a scene opts in). Scenes mount/unmount per route; scroll drives them via a shared progress store (Zustand), never via drei `ScrollControls`.
+- Lenis is the single scroll source: wire `lenis.raf` into `gsap.ticker`, and `ScrollTrigger.update` to Lenis scroll events. Native scrolling is never hijacked — no wheel-event takeover, no forced scroll positions.
+- The entire 3D bundle (three, R3F, drei, scenes) is one lazy chunk, loaded during the preloader. The DOM hero renders and is interactive even if the canvas is still loading.
+
+---
+
+## 4 · INFORMATION ARCHITECTURE
+
+**Sitemap:** `/` Home · `/about` · `/portfolio` (+ `/portfolio/:slug` case studies) · `/services` (+ `/services/:slug`) · `/insights` (+ `/insights/:slug`) · `/lab` ("Resources", reframed as tools/experiments/downloads) · `/faq` · `/contact` · `/legal/privacy` + `/legal/terms` · custom `/404`.
+
+**The seven-section rule** applies to Home, About, Portfolio, Services, Insights, Lab, FAQ, and Contact. Each page's seven sections are built from the shared section system (§6) with exactly **one bespoke signature moment per page** — Home is the exception and gets the full cinematic treatment in every act. **Legal pages are exempt by design:** they receive a premium editorial-typography layout (generous measure, sticky chapter nav, subtle grain) and nothing more. Restraint there is the luxury.
+
+**Services (exactly these seven, one per Home Act III panel and one detail page each):** AI Website Development · Premium Landing Pages · Ecommerce Websites · Web Applications · Mobile Applications · WordPress Development · Headless WordPress Development.
+
+**Case studies (invent these six with real-sounding names, one signature metric each, consistent art direction):** an AI-powered SaaS marketing site, a luxury ecommerce flagship, a fintech web app dashboard, a headless WordPress publication, a mobile app launch site, and a premium landing page with a conversion-lift metric. Each case study page: hero image → challenge → approach → build details (stack chips) → outcome metrics → next-project link.
+
+**Per-page seven-section outlines (concise — expand faithfully):**
+- **About:** portrait/manifesto hero → origin story (pinned vertical timeline) → philosophy triptych → process (5 numbered stages, scroll-scrubbed) → tools & stack wall → values/working principles → CTA bridge to contact.
+- **Portfolio:** index hero with live count → filter bar (discipline) → the gallery (signature: full-bleed list where hovering a project title reveals a WebGL image plane trailing the cursor) → featured case highlight → results strip (aggregate metrics) → testimonials → CTA.
+- **Services:** hero → the seven services as a sticky-stacked deck (signature) → engagement models → process timeline → tech credibility strip → FAQ excerpt → CTA.
+- **Insights:** editorial hero with featured article → article list with hover image reveals → topic index → newsletter capture → most-read → quote/POV interlude → CTA.
+- **Lab:** hero framing it as experiments & free resources → interactive experiment embeds (signature: 2–3 small live WebGL toys) → downloads → snippets → uses/setup → changelog → CTA.
+- **FAQ:** hero → question groups as restyled accordions (pricing, process, tech, AI, timelines, aftercare) → still-have-questions CTA.
+- **Contact:** the closing scene — full spec in Act VII (§10), reused as its own page.
+
+---
+
+## 5 · UX STRATEGY & CLIENT JOURNEY
+
+- **Every page answers three client questions in order:** Can he do it? (capability) — Has he done it? (proof) — What happens if I reach out? (clarity of next step).
+- Scroll is the primary narrative mechanism; clicking is always optional for comprehension. A visitor who only scrolls Home should absorb the entire pitch.
+- Persistent affordances: slim top progress line (theme-gradient), "Start a project" always reachable in the nav, footer CTA on every page.
+- Wayfinding inside long pages: a subtle act indicator (Ⅰ–Ⅶ) on Home, sticky chapter nav on editorial pages.
+- Friction budget: contact form has 4 fields max before optional details. Case studies load in under a second via prerender + shared-element transition, so browsing work feels effortless.
+- Never trap the user: no scroll-jacking, ESC always closes overlays, all pinned sections release cleanly at their natural end.
+
+---
+
+## 6 · UI DESIGN SYSTEM
+
+**Spacing:** 4px base unit. Component paddings from the 4/8/12/16/24/32/48/64 ladder. Section vertical padding: `clamp(96px, 12vw, 200px)`. Container: `max-width: 1440px`, gutters `clamp(20px, 5vw, 96px)`. Grid: 12 columns desktop / 6 tablet / 4 mobile.
+
+**Radii:** 8px inputs · 16px cards · 24px modals · 999px pills. Never mix radii on sibling elements.
+
+**Glass system (one recipe, reused):** `background: color-mix(in oklab, var(--surface) 65%, transparent); backdrop-filter: blur(20px) saturate(140%); border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent)` plus a 1px inner top highlight. Glass is reserved for floating chrome (nav, theme controls, toasts) — not slathered on every card.
+
+**Glow system:** glow is *light behaving physically*, never a drop-shadow decoration. Implemented as radial-gradient pseudo-elements in the accent color at 10–25% opacity, blurred 40–80px, positioned as if cast by the nearest light source. Interactive glow follows the cursor on CTAs and the contact scene.
+
+**Shadow/elevation (3 levels only):** e1 `0 2px 8px rgb(0 0 0 / .35)` · e2 `0 12px 32px rgb(0 0 0 / .45)` · e3 `0 32px 80px rgb(0 0 0 / .55)`. Dark UIs read depth from light edges as much as shadow — every elevated surface gets a subtle 1px top border in `--text` at 6% opacity.
+
+**Buttons:** Primary — pill, accent-filled, ink-dark label, magnetic (§9), cursor-tracking sheen; Secondary — 1px accent-tinted border, transparent, fills on hover via a clipped radial reveal from the cursor point; Ghost — text + animated underline that draws left→right; Icon — 44px min target. States for hover/active/focus-visible (2px offset outline in accent)/loading (label morphs to inline spinner via Motion layout) are mandatory on all variants.
+
+**Cards:** never flat. The house card = deep surface (`--surface-2`), e2 elevation, 3D tilt on pointer (max 6°, spring-smoothed), a specular highlight that tracks the cursor, and content that parallaxes 4–8px against the card body. Case-study cards add the WebGL hover displacement (§11).
+
+**Forms:** shadcn primitives restyled — floating labels, 1px bottom-border fields that ignite in accent on focus, inline validation appearing via Motion presence, and an error style that explains the fix ("Enter an email like name@studio.com").
+
+**Iconography:** one set only — Lucide, 1.5px stroke, sized 20/24. Icons may animate (draw-on, morph) but never bounce.
+
+**Backgrounds:** every section sits on the living background system — base dark gradient per theme + animated mesh-gradient blobs (two, slow, ±60s loops, GPU-composited) + 2.5% film grain (tiling noise, `mix-blend-mode: overlay`) + occasional volumetric light ray on signature sections. Nothing is ever flat black.
+
+---
+
+## 7 · TYPOGRAPHY SYSTEM
+
+**Faces (all free via Fontshare/Google, self-host with `font-display: swap`, preload the two hero weights):**
+- **Display: Clash Display** (Semibold/Medium) — sharp, geometric, expensive-looking. Hero and section headlines only.
+- **Body: Satoshi** (Regular/Medium) — humanist-geometric, superb at small sizes.
+- **Utility: JetBrains Mono** (Regular) — eyebrows, labels, stats, stack chips, the preloader counter. This mono voice is part of the brand's engineering signal.
+
+**Fluid scale (`clamp`):** display `clamp(2.75rem, 8vw, 7rem)` / h2 `clamp(2rem, 4.5vw, 3.5rem)` / h3 `clamp(1.375rem, 2.5vw, 1.75rem)` / body 1.0625rem / small .9375rem / eyebrow .8125rem mono uppercase tracked +0.12em.
+
+**Rules:** headlines line-height 0.95–1.05, tracking −0.02em; body line-height 1.65, max measure 68ch; stats set in mono with tabular-nums; one — exactly one — variable-font moment: the Act II manifesto headline animates `wght` 300→700 scrubbed to scroll. Uppercase display is permitted; uppercase body is not.
+
+---
+
+## 8 · COLOR SYSTEM — THE THREE THEMES
+
+All colors are CSS custom properties on `:root[data-theme=…]`; components reference only tokens. Contrast: body text ≥ 7:1, large display ≥ 4.5:1, verify each theme.
+
+**Theme 1 · "Aurum" (default) — obsidian & champagne gold.** Why: immediate luxury signal; gold on near-black reads as craftsmanship.
+`--bg-0:#0A0A0C --bg-1:#141017 --surface:#17141B --surface-2:#1E1A24 --text:#F5F1E8 --text-2:#A8A198 --accent:#E8C47C --accent-2:#B48A3F --glow:rgb(232 196 124 / .16)`
+
+**Theme 2 · "Iris" — deep indigo & electric iris.** Why: the technology/AI register; cool, precise, futuristic without cliché cyan.
+`--bg-0:#07080F --bg-1:#0E1024 --surface:#111428 --surface-2:#181C36 --text:#EDEFFB --text-2:#9AA0C4 --accent:#8B93F8 --accent-2:#5A4FF0 --glow:rgb(139 147 248 / .18)`
+
+**Theme 3 · "Garnet" — near-black maroon & garnet rose.** Why: warmth and boldness for the human/story register; rare in dev portfolios, memorable.
+`--bg-0:#0C0709 --bg-1:#1A0D12 --surface:#1D1015 --surface-2:#26141B --text:#F7EEF0 --text-2:#B39AA1 --accent:#D14D66 --accent-2:#F0B7A4 --glow:rgb(209 77 102 / .16)`
+
+**Semantic (theme-independent):** success `#5FBF8A` · warning `#E5B461` · error `#E0655F` · borders `color-mix(in oklab, var(--text) 10%, transparent)`.
+
+**Theme behavior — implement exactly this logic:**
+1. Default mode is **Auto-Cinematic**: on Home, Acts I–II run Aurum, Acts III–V cross-fade to Iris, Acts VI–VII to Garnet, scrubbed over ~15% of scroll between acts. The 3D lighting, mesh gradients, and all tokens transition together (interpolate tokens via GSAP on the root element; the canvas reads the same store).
+2. Three floating theme controls (small glass orbs filled with each theme's gradient, bottom-right, tooltip-labeled) let the user choose. **A manual choice pins the theme** — auto transitions stop, and scroll instead modulates *lighting intensity and gradient position within* the pinned theme, so the cinema never dies. A fourth subtle "auto" control restores cinematic mode. Persist the choice in localStorage.
+3. Theme transitions take 1.2s with the `cinematic` ease, and the Artifact's refracted light visibly changes color mid-transition — the theme switch is itself a wow moment.
+
+---
+
+## 9 · MOTION DESIGN BIBLE
+
+**The grammar (every animation on the site obeys this):**
+- **Physics of the world:** everything behaves like heavy glass in low gravity — decisive starts, long elegant settles, no bounce, no elastic, no wobble.
+- **Easing tokens:** `--ease-out` `cubic-bezier(0.22, 1, 0.36, 1)` (expo-out — 90% of entrances) · `--ease-inout` `cubic-bezier(0.83, 0, 0.17, 1)` (position changes, theme shifts) · `cinematic` — a GSAP CustomEase `M0,0 C0.2,0 0.15,1 1,1` for hero/act moments. Linear only inside scrubbed ScrollTriggers (the scrub itself supplies the feel).
+- **Duration tokens:** micro 0.25s · standard 0.7s · cinematic 1.4s · page transition 0.9s. Stagger: 0.06s UI / 0.1s content / 0.02s per SplitText line-char.
+- **Choreography law:** one focal animation at a time per viewport; supporting elements follow it, never compete. Entrances animate `opacity`, `transform`, `clip-path` only (compositor-safe). Exit animations are half the duration of entrances.
+- **Distance law:** reveal translations are 24–40px — perceptible, never a 200px flight.
+
+**The vocabulary — seven expressions of the one grammar, mapped to Home's seven acts so "every section introduces a new style" stays coherent:** Ⅰ materialization (particles→form) · Ⅱ pinned chapter scrub · Ⅲ sticky-stack morph · Ⅳ horizontal gallery drift · Ⅴ counter/constellation assembly · Ⅵ editorial mask reveals · Ⅶ convergence & light. Inner pages reuse these expressions; they never invent an eighth ad hoc.
+
+**Signature motion set:**
+- **Headlines:** SplitText into lines, each line inside an `overflow:hidden` mask, rising 110%→0 with 0.08s stagger, `--ease-out`. This is the house reveal — used everywhere, so it becomes the brand's motion signature.
+- **Images:** reveal via `clip-path: inset()` wipe in the scroll direction + 1.06→1 scale settle.
+- **Magnetic buttons:** within a 120px radius the button translates up to 12px toward the cursor and its label up to 4px more (two-layer parallax), spring `stiffness 150 / damping 15` via Motion; releases to origin on leave.
+- **Cursor (fine pointers only):** 8px dot + 32px trailing ring (0.12 lerp). Contextual morphs: ring expands with "View" label over case studies; becomes a vertical-drag glyph over the gallery; tints to accent over CTAs; hides over the Artifact where the object itself reacts instead. Fully removed on touch devices and under reduced motion.
+- **Nav:** glass bar that condenses on scroll-down, returns on scroll-up. Menu button opens a full-screen overlay: background veil wipes in (`--ease-inout`), links reveal via house headline treatment; hovering a link shifts a large ghosted preview word behind the list. Progress line under the bar fills in the live theme gradient.
+- **Page transitions:** View Transitions API — shared-element morph for case-study images (card image → hero image), root cross-fade 0.9s elsewhere; GSAP theme-gradient veil wipe as fallback for unsupported browsers.
+- **Preloader (the overture, and the 3D chunk's loading time made beautiful):** black screen, mono counter 000→100 tracking real asset progress, the Artifact's particles drifting inward and assembling as it climbs; at 100 the counter cuts, particles snap into the Artifact with a single light bloom, veil lifts into the hero. Max 2.5s even on fast connections (minimum dwell 1.2s so it never flickers). Skippable via click/keypress. Shown once per session.
+- **Micro-interactions inventory (all mandatory):** link underline draw-ins · icon draw-on at first reveal · accordion chevrons rotating with height-animated panels (Motion layout) · form focus border ignition · toast slide+fade · tab indicator sliding via Motion `layoutId` · tooltip 0.25s fade+2px rise · stat counters counting only when ≥50% in view, mono, once.
+
+**GSAP architecture (build it this way):**
+- `src/motion/` exports: easing/duration tokens, `revealLines()`, `revealImage()`, `pinAct()`, `counter()` utilities; all components consume these — no inline magic numbers.
+- Every component uses `useGSAP` (official React hook) with proper context cleanup; ScrollTriggers are created after Lenis mounts and refreshed on route change and font load.
+- `gsap.matchMedia()` gates: `(min-width:1024px)` full choreography · `(max-width:1023px)` simplified (no pinning except Act Ⅲ, shorter distances) · `(prefers-reduced-motion: reduce)` sets the global static mode.
+- Pinned sections use `pinSpacing: true`, scrub `0.8–1.2` (never `true`/0 — the slight lag is the cinematic feel), and `anticipatePin: 1`.
+
+**GSAP vs Motion responsibilities (strict):** GSAP = everything scroll-linked, SplitText, pinning, the theme interpolation, canvas-progress driving. Motion = presence (mount/unmount), layout animations (tabs, accordions, form states), gesture springs (magnetic, tilt). If both could do it, scroll-linked → GSAP, state-linked → Motion.
+
+**Mobile motion:** no cursor system, tilt from `deviceorientation` disabled by default (battery), pinning minimized, Artifact drops post-processing and halves particle counts, all hover effects have tap equivalents or graceful absence. Quality stays premium via typography, spacing, and the (cheaper) canvas — never via more effects.
+
+**Reduced motion (a designed mode, not a kill switch):** scrubbed sequences become static compositions at their end state; the canvas renders a single lit still of the Artifact per act (no rotation); reveals become 0.3s opacity fades; parallax, magnetic, cursor, auto theme-cinema all off (manual theme switching stays, with instant swaps); preloader becomes a simple fade. The site must remain fully beautiful and fully usable in this mode — test it deliberately.
+
+---
+
+## 10 · HOME — THE SEVEN ACTS (full storyboard)
+
+Home is one continuous scroll film. The Artifact (§11) is the protagonist; the DOM is the script. Each act below lists: goal → layout → content → motion/GSAP → canvas behavior.
+
+**Act Ⅰ · ARRIVAL (Hero).** Goal: awe in 3 seconds; establish the brand and the object. Layout: Artifact center; display headline overlapping its upper third (canvas z-sorted between headline and subhead for depth); mono eyebrow above; subhead + two CTAs ("Start a project" primary, "View the work" ghost) below; scroll cue (thin animated line + mono "scroll") bottom-center; theme orbs bottom-right. Mobile: stacked, Artifact ~55vh behind text at reduced opacity. Copy: eyebrow "AI WEB DEVELOPER — NEXA"; headline "Digital experiences, engineered."; subhead one sentence naming what you build and for whom. Motion: post-preloader entrance timeline — headline house-reveal → subhead fade-rise → CTAs → cue draw (total 1.6s, `cinematic`). Canvas: Artifact idles — 0.03 rad/s rotation, breathing scale ±1.5% at 0.1Hz, mouse parallax (object ±3°, camera ±0.4 units, 0.08 lerp), touch-drag rotates with inertia, theme light refracting through the glass. H1 is the real DOM headline.
+
+**Act Ⅱ · SIGNAL (Philosophy).** Goal: reframe from "hires a developer" to "commissions an experience." Pinned for 300vh. The Artifact drifts left and *fractures* into orbital shards orbiting an exposed light core; on the right, three manifesto chapters swap via scrub (each: mono index 01–03, one bold claim, two supporting lines). The variable-font `wght` 300→700 moment lives on this act's opening headline. Scrub 1.0; chapter swaps via house reveal driven by timeline position; shard orbit radius and core intensity keyed to the same scrubbed timeline via the shared progress store.
+
+**Act Ⅲ · FORGE (Services).** Goal: capability breadth with zero card grid. Sticky-stack: seven full-width service panels stack and peel (each pinned panel scales to 0.95 and dims as the next slides over). Each panel: mono index, service name in display type, one-line value promise, "Explore" ghost link → `/services/:slug`, and at right a floating micro-artifact forged from the shards in a service-distinct material — AI Website Dev: iridescent thin-film · Landing Pages: polished chrome · Ecommerce: gold metal · Web Apps: transmission glass · Mobile Apps: matte ceramic + emissive edge · WordPress: brushed steel · Headless WP: wireframe→solid morph. Hover (desktop): each micro-artifact has a *material-motivated* reaction — chrome speeds its env-map rotation, glass increases dispersion, emissive pulses — so "different hover per service" is physical, not arbitrary. Theme has crossed into Iris by now.
+
+**Act Ⅳ · GALLERY (Featured work).** Goal: proof, fast. Horizontal pinned gallery: section pins, vertical scroll translates a track of 4 featured case-study slides (each ~70vw: WebGL image plane, mono index, title, one metric). Hover: displacement-shader ripple + RGB micro-shift on the image plane; cursor ring reads "View". Click → case study via shared-element View Transition. Artifact recedes to deep-background bokeh light during this act. Progress: thin track-position line under the gallery. Mobile: no pin — native horizontal snap-scroll carousel.
+
+**Act Ⅴ · CONSTELLATION (Why clients choose NEXA).** Goal: quantified trust. The shards scatter into a particle constellation; as scroll proceeds, particles gather into glowing nodes beside four animated counters (projects shipped, avg. Lighthouse score, client retention, years). Below, a horizontal process timeline (Discover → Design → Build → Launch → Evolve) draws its connecting line via scrubbed `stroke-dashoffset`, nodes igniting in sequence. Two client quotes in editorial serif-free large type with mono attribution.
+
+**Act Ⅵ · ARCHIVE (Insights & Lab preview).** Goal: ongoing authority; a deliberate quiet movement before the finale. Editorial two-column: left sticky ("From the archive" + links to Insights/Lab), right a flowing list of 4 entries — hovering a title reveals a small WebGL image plane trailing the cursor. Canvas: Artifact reduced to faint refracted caustics drifting on the background. Theme crossing into Garnet.
+
+**Act Ⅶ · BEACON (Contact / finale).** Goal: the ending scene of the film; make reaching out feel inevitable. Full-viewport: shards fly home and reconverge into the Artifact condensed to a single intense beacon of light that *follows the cursor's* horizontal position, casting live light onto the giant display-type CTA "Let's build what's next." beneath it. Below: a 4-field form (name, email, project type select, message) whose fields reveal one-by-one like film credits as they enter the viewport; or "book a call" alternative link. Then the footer: oversized ghosted "NEXA" watermark with a slow specular sweep, sitemap links with underline draw-ins, socials, local time in mono, back-to-top that ascends the page with Lenis easing. Submitting fires a success moment: the beacon flares once, toast confirms.
+
+**The `/contact` page reuses Act Ⅶ** expanded to seven sections: hero/beacon → form → direct channels → availability & timezone → engagement expectations ("what happens after you write") → mini-FAQ → footer.
+
+---
+
+## 11 · THREE.JS / R3F SCENE PLAN
+
+**The Artifact — identity:** a monolithic form composed of 9–13 interlocking faceted glass shards (custom low-poly geometry, ~15–25k triangles total — sculpted, not a primitive; no torus knots, no icosahedron clichés). Material: drei `MeshTransmissionMaterial` (transmission 1, thickness ~1.2, chromatic aberration ~0.04, roughness ~0.12) with an inner emissive core mesh supplying the theme-colored light that refracts outward. This one object, restated, is the entire 3D identity of the site — no unrelated 3D anywhere.
+
+**Scene architecture:** single root `<Canvas>` (fixed, `dpr={[1, 1.75]}`, `gl={{ antialias: true, powerPreference: 'high-performance' }}`); per-route scene components; a Zustand store `{ act, actProgress, theme, pointer }` written by GSAP ScrollTriggers and read inside `useFrame` with damped interpolation (`maath/easing` `damp3`/`dampE`, λ≈4) so canvas motion is always smoothed, never raw scroll.
+
+**Lighting philosophy:** cinematic three-point — key directional in the theme accent, cool rim from behind for silhouette, faint fill; plus the core's point light. A subtle drei `Environment` (studio HDR at low intensity) for speculars. Lights lerp colors during theme transitions.
+
+**Post-processing (desktop only):** Bloom (threshold ~0.85, gentle), Vignette, subtle Noise. No SSAO/DOF — too costly for the value. Mobile: no post-processing chain at all.
+
+**Particles:** one instanced/points system (≤3,000 desktop / ≤1,200 mobile), additive blending, theme-colored, driven by a simple curl-noise shader; reused for preloader assembly, Act Ⅴ constellation, and Act Ⅶ convergence — one system, three roles.
+
+**Custom shaders (small and purposeful):** gallery displacement/RGB-shift material for image planes; caustics-style background shader for Act Ⅵ; the mesh-gradient background may be a fullscreen shader plane if cheaper than CSS. No shader exists for its own sake.
+
+**Performance rules:** `frameloop="demand"` + `invalidate()` whenever idle (Legal, FAQ, static states); geometry via draco if any assets are imported; textures ≤2048px, KTX2 where possible; `<AdaptiveDpr>` under load; dispose scenes on route unmount; the canvas never blocks LCP (DOM paints first, canvas fades in). Detect weak GPUs (`detect-gpu`): tier ≤1 gets the static-poster fallback with CSS-only ambiance — gracefully, with no error surface.
+
+---
+
+## 12 · COMPONENT ARCHITECTURE & FOLDER STRUCTURE
+
+```
+src/
+  app/                 # RR7 routes (home, about, portfolio, portfolio.$slug,
+                       # services, services.$slug, insights, insights.$slug,
+                       # lab, faq, contact, legal.privacy, legal.terms, $404)
+  components/
+    ui/                # restyled shadcn primitives
+    common/            # Nav, Footer, Cursor, ThemeOrbs, ProgressLine, Preloader,
+                       # SectionShell, Eyebrow, Headline, MagneticButton, Card,
+                       # ImageReveal, StatCounter, MDXComponents
+    sections/home/     # ActArrival … ActBeacon (one file per act)
+    sections/<page>/   # per-page sections
+  three/
+    ArtifactCanvas.tsx # root canvas
+    scenes/            # HomeScene, GalleryPlanes, MicroArtifacts, ParticleField
+    materials/         # transmission config, displacement + caustics shaders
+    hooks/             # useSceneProgress, useDampedPointer
+  motion/              # tokens.ts, reveals.ts, scroll.ts (Lenis+ST setup), transitions.ts
+  stores/              # theme.ts, scene.ts (Zustand)
+  content/             # insights/*.mdx, lab/*.mdx, case-studies/*.mdx, services.ts
+  lib/                 # seo.ts (meta + JSON-LD), utils
+  styles/              # tokens.css (all custom properties), globals.css
+server/                # Express: serve build, POST /api/contact
+```
+
+Component rules: sections are self-contained (own GSAP context, own cleanup); no section imports another section; shared visual language flows only through `components/common` and tokens; every component typed, zero `any`.
+
+---
+
+## 13 · PERFORMANCE BUDGET (hard numbers — verify, don't estimate)
+
+LCP ≤ 2.0s · CLS ≤ 0.05 · INP ≤ 200ms (mid-range Android, throttled 4G). Initial JS ≤ 180KB gz (3D chunk excluded and lazy, ≤ 450KB gz). Fonts: 2 preloaded woff2 subsets, rest lazy. Images: AVIF with WebP fallback, responsive `srcset`, explicit dimensions, lazy below the fold, priority hints on hero assets. Route-level code splitting; MDX compiled at build; Lighthouse ≥ 95 across all four categories on every prerendered route — run it and paste results at each phase gate.
+
+## 14 · RESPONSIVE STRATEGY
+
+Breakpoints: 320 / 480 / 768 / 1024 / 1440 / 1920. Design decisions, not just reflow: nav → overlay menu ≤1023px; Act Ⅲ stack becomes swipeable full-width panels; Act Ⅳ becomes native snap-scroll; the Artifact reframes per viewport (portrait: higher in frame, smaller). Landscape phones get reduced section heights (no 100vh text cropping — use `svh`/`dvh` units everywhere, never bare `vh`). Test at exactly: 320, 375, 390, 768, 820, 1024, 1280, 1440, 1920, plus one landscape phone — fix every overflow (add a dev-time `outline` overflow check), every orphaned headline, every cramped tap target (≥44px).
+
+## 15 · ACCESSIBILITY
+
+Semantic landmarks on every page; one `h1` per page, ordered headings; skip-to-content first in tab order; full keyboard operability including the theme orbs and overlay menu (focus trap, ESC closes, focus returns); `focus-visible` styles per §6; canvas `aria-hidden="true"` with all meaning duplicated in DOM; forms with real `<label>`s, `aria-describedby` errors, `aria-live` on submission status; contrast per §8; the reduced-motion mode of §9 as a first-class experience. Run axe on every route; zero critical issues.
+
+## 16 · SEO STRATEGY
+
+Prerendered HTML for every static route (RR7 `prerender`). Per-route: unique title (≤60ch), meta description, canonical, OG/Twitter cards with a branded 1200×630 OG image (generate a template: dark gradient + display type + Artifact still, per page). JSON-LD: `Person`+`ProfessionalService` sitewide; `Service` on service pages; `Article` on Insights; `FAQPage` on FAQ; `BreadcrumbList` on nested routes. `sitemap.xml` + `robots.txt` at build. Descriptive alt text everywhere; internal linking woven through copy (case studies ↔ services ↔ insights). Headline text is real DOM text — never canvas, never images.
+
+## 17 · DEVELOPMENT ROADMAP (build in this exact order, gate at each ✅)
+
+- **Phase 0 — Strategy.** Written execution plan per §0. ✅ Owner approves.
+- **Phase 1 — Foundation.** RR7 + TS + Tailwind 4 + tokens.css (all three themes) + fonts + Lenis/GSAP wiring + Express + all routes stubbed with real nav/footer. ✅ Every route renders, themes switch via `data-theme`, Lighthouse ≥95 on the stub.
+- **Phase 2 — Design system.** All `common/` + restyled `ui/` components on a hidden `/styleguide` route. ✅ Every component in all 3 themes, keyboard-perfect, zero shadcn default styling visible.
+- **Phase 3 — Home DOM.** All seven acts fully built with final copy and scroll choreography — a placeholder gradient object stands in for the Artifact. ✅ The page already feels premium with the canvas off; reduced-motion mode verified.
+- **Phase 4 — The Artifact.** Canvas root, Home scene, all seven act behaviors, theme-reactive lighting, preloader. ✅ 60fps desktop / ≥40fps mid-mobile, graceful weak-GPU fallback.
+- **Phase 5 — Portfolio + case studies.** Gallery, six written case studies, shared-element transitions. ✅
+- **Phase 6 — Services + About.** Sticky-stack, micro-artifacts, service detail pages, About’s seven sections. ✅
+- **Phase 7 — Insights, Lab, FAQ, Contact, Legal, 404.** MDX pipeline, 4 real articles + 3 lab entries written in brand voice, working contact endpoint. ✅ Form delivers mail; FAQ schema validates.
+- **Phase 8 — Hardening.** Full responsive matrix, axe on all routes, Lighthouse all routes, cross-browser (Chrome, Safari incl. iOS, Firefox — View Transition fallback verified), perf budget enforcement. ✅ Numbers pasted.
+- **Phase 9 — Final review.** Walk the entire site as a skeptical creative director. Anything that reads generic — redesign it now. ✅ Ship.
+
+## 18 · CODE QUALITY STANDARDS
+
+TypeScript strict, zero `any`, zero `@ts-ignore`; ESLint + Prettier enforced; every GSAP context and Three resource explicitly cleaned up (navigate away/back 10× — memory must be flat); no dead code, no commented-out blocks, no console noise in production; magic numbers only in `motion/tokens.ts` and `styles/tokens.css`; components ≤ ~200 lines or split; commit per meaningful unit with clear messages; a README documenting architecture, tokens, and how to add a case study or article.
+
+## 19 · PREMIUM INTERACTION LAW (summary of non-negotiables)
+
+Magnetic primaries · house headline reveal everywhere · contextual cursor (desktop) · card tilt + specular · gallery displacement hover · theme orbs with pinning logic · preloader overture · View Transitions · living backgrounds · film-credit form reveals · beacon finale. Every interactive element has hover, active, focus-visible, and (where applicable) loading states. Nothing on the site is instant-jump; nothing on the site bounces.
+
+## 20 · DEPLOYMENT
+
+Replit Autoscale Deployment: build (`react-router build` + prerender) → Express serves static output with long-cache immutable assets (hashed filenames) + `/api/contact`. Compression (brotli), security headers (CSP allowing the font/asset origins, X-Content-Type-Options, Referrer-Policy), custom domain + HTTPS via Replit, contact mail via Resend (API key in Replit Secrets — never in code), simple privacy-respecting analytics (Plausible script) noted in the privacy policy. Post-deploy: verify prerendered HTML with JS disabled, run Lighthouse against the live URL, submit sitemap to Search Console.
+
+---
+
+## NEVER-DO LIST (grounds for automatic redesign)
+
+Template or Bootstrap-recognizable layouts · default shadcn styling visible anywhere · lorem ipsum or placeholder images at any phase · torus-knot/icosahedron 3D clichés · scroll-jacking or wheel takeover · bouncy/elastic easing · more than one focal animation per viewport · flat black backgrounds · generic service card grids · "Learn more"/"Submit" CTAs · emoji in UI copy · stock-photo humans · animations without narrative purpose · shipping any phase without its acceptance criteria verified.
+
+## DEFINITION OF DONE
+
+The site ships when: all phase gates are ✅ with pasted evidence; a stranger scrolling Home with no explanation understands what NEXA does and feels the craft; the reduced-motion, weak-GPU, and 320px experiences are each independently excellent; and you, acting as the studio's creative director, would enter this site for an award under your own name.
+
+Begin with Phase 0 now. Do not write application code until the execution strategy is approved.
