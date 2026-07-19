@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Satoshi:wght@400;500;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@600,400&display=swap');
+
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-bg-0: var(--bg-0);
+  --color-bg-1: var(--bg-1);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text-main: var(--text-main);
+  --color-text-2: var(--text-2);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-glow: var(--glow);
+  
+  --color-success: #5FBF8A;
+  --color-warning: #E5B461;
+  --color-error: #E0655F;
+  --color-border-main: color-mix(in oklab, var(--text-main) 10%, transparent);
+
+  /* Mapping generic variables for components that might use them */
+  --color-background: var(--bg-0);
+  --color-foreground: var(--text-main);
+  --color-border: color-mix(in oklab, var(--text-main) 10%, transparent);
+  --color-input: color-mix(in oklab, var(--text-main) 15%, transparent);
+  --color-ring: var(--accent);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--bg-0);
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--text-main);
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--text-2);
+  --color-accent-foreground: var(--bg-0);
+  --color-destructive: #E0655F;
+  --color-destructive-foreground: var(--text-main);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--text-main);
+  --color-popover-border: color-mix(in oklab, var(--text-main) 10%, transparent);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--text-main);
+  --color-card-border: color-mix(in oklab, var(--text-main) 10%, transparent);
+
+  --font-sans: 'Satoshi', sans-serif;
+  --font-display: 'Clash Display', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  --animate-blob-spin: blob-spin 60s linear infinite;
+  --animate-blob-spin-reverse: blob-spin-reverse 70s linear infinite;
+}
+
+:root {
+  /* Default Aurum Theme */
+  --bg-0: #0A0A0C;
+  --bg-1: #141017;
+  --surface: #17141B;
+  --surface-2: #1E1A24;
+  --text-main: #F5F1E8;
+  --text-2: #A8A198;
+  --accent: #E8C47C;
+  --accent-2: #B48A3F;
+  --glow: rgb(232 196 124 / 0.16);
+  
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.83, 0, 0.17, 1);
+
+  transition: --bg-0 1.2s var(--ease-inout),
+              --bg-1 1.2s var(--ease-inout),
+              --surface 1.2s var(--ease-inout),
+              --surface-2 1.2s var(--ease-inout),
+              --text-main 1.2s var(--ease-inout),
+              --text-2 1.2s var(--ease-inout),
+              --accent 1.2s var(--ease-inout),
+              --accent-2 1.2s var(--ease-inout),
+              --glow 1.2s var(--ease-inout);
+}
+
+:root[data-theme="iris"] {
+  --bg-0: #07080F;
+  --bg-1: #0E1024;
+  --surface: #111428;
+  --surface-2: #181C36;
+  --text-main: #EDEFFB;
+  --text-2: #9AA0C4;
+  --accent: #8B93F8;
+  --accent-2: #5A4FF0;
+  --glow: rgb(139 147 248 / 0.18);
+}
+
+:root[data-theme="garnet"] {
+  --bg-0: #0C0709;
+  --bg-1: #1A0D12;
+  --surface: #1D1015;
+  --surface-2: #26141B;
+  --text-main: #F7EEF0;
+  --text-2: #B39AA1;
+  --accent: #D14D66;
+  --accent-2: #F0B7A4;
+  --glow: rgb(209 77 102 / 0.16);
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-bg-0 text-text-main overflow-x-hidden;
+    /* Noise overlay */
+    &::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      mix-blend-mode: overlay;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-text-main;
+  }
+}
+
+@layer utilities {
+  .text-fluid-display {
+    font-size: clamp(2.75rem, 8vw, 7rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .text-fluid-h2 {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .text-fluid-h3 {
+    font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+    line-height: 1.2;
+  }
+  .text-fluid-body {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    max-width: 68ch;
+  }
+  .text-eyebrow {
+    @apply font-mono text-[0.8125rem] uppercase tracking-[0.12em] text-text-2;
+  }
+
+  .glass-panel {
+    background: color-mix(in oklab, var(--surface) 65%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
+    box-shadow: inset 0 1px 0 0 color-mix(in oklab, #ffffff 10%, transparent);
+  }
+
+  .elevation-1 {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.35);
+    border-top: 1px solid color-mix(in oklab, var(--text-main) 6%, transparent);
+  }
+  .elevation-2 {
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+    border-top: 1px solid color-mix(in oklab, var(--text-main) 6%, transparent);
+  }
+  .elevation-3 {
+    box-shadow: 0 32px 80px rgb(0 0 0 / 0.55);
+    border-top: 1px solid color-mix(in oklab, var(--text-main) 6%, transparent);
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 40px var(--glow);
+  }
+
+  /* Lenis smooth scrolling requires html to not have smooth behavior natively */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+
+  @keyframes blob-spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  @keyframes blob-spin-reverse {
+    0% { transform: rotate(360deg) scale(1); }
+    50% { transform: rotate(180deg) scale(0.8); }
+    100% { transform: rotate(0deg) scale(1); }
+  }
+}

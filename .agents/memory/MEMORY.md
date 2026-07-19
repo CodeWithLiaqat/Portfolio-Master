@@ -1,0 +1,2 @@
+- [GSAP plugin registration](gsap-plugin-registration.md) — all GSAP plugins must be registered in main.tsx before any component mounts; never rely on per-file registerPlugin calls.
+- [NEXA design subagent pattern](nexa-design-subagent.md) — design subagent produces files that need package installs and import path verification before the app runs.

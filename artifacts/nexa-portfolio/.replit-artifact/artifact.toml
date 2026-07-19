@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "NEXA Portfolio"
+version = "1.0.0"
+id = "artifacts/nexa-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18412
+
+[services.development]
+run = "pnpm --filter @workspace/nexa-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nexa-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/nexa-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18412"
+BASE_PATH = "/"
