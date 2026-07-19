@@ -1,0 +1,50 @@
+# REFINEMENT PROMPT — CODEICS VERIFICATION PASS + SERVICES EXPANSION
+### Paste this entire document into Replit AI Agent on the existing CODEICS project
+
+## 0 · HOW TO TREAT THIS DOCUMENT
+
+Most items below were ordered in previous passes. For those, your job is **verification, not repetition**: check the item, and if it already meets the standard, mark it VERIFIED with pasted evidence and move on — do not rewrite, restyle, or re-animate anything that passes. Only failures get fixed, using the established recipes (readability stack, house card standard, CoverScene imagery, Motion Bible tokens). Redoing passing work is a regression. The one section containing genuinely new work is §2 — do that with full care. Work in the phase order at the end; stop for approval between phases.
+
+---
+
+## 1 · BRAND — VERIFY, DON'T REDO
+
+Run the case-insensitive `nexa` grep across source, content, config, and the **deployed HTML of every route**. Expected: zero. Paste the output. If any occurrence surfaces (metadata, OG images, JSON-LD, localStorage keys, README, manifest), fix it and re-grep. Do not touch branding that already reads CODEICS.
+
+## 2 · SERVICES EXPANSION (new work)
+
+The service offering now includes dedicated iOS and Android development. Implement as follows:
+
+- **Top-level services stay as built:** AI Website Development · Premium Landing Pages · Ecommerce Websites · Web Applications · Mobile Applications · WordPress Development · Headless WordPress Development. **Do not remove Ecommerce** unless the owner explicitly confirms — deleting it would orphan internal links and discard a ranking page. Ask once if uncertain, then proceed.
+- **Add two child service pages** under Mobile Applications: `/services/ios-app-development` and `/services/android-app-development`. Each follows the existing service-detail template exactly: hero with its own micro-artifact variant (iOS: the matte-ceramic mobile artifact with a cool emissive edge; Android: the same family with a warm emissive edge — same geometry family, distinct lighting, so they read as siblings), positioning copy in the house voice targeting "iOS app development" / "Android app development" keywords, process, deliverables, FAQ block with `FAQPage` schema, `Service` JSON-LD with CODEICS as provider, and CTAs to `/contact`.
+- **Wire them in:** the Mobile Applications panel in Act Ⅲ and on `/services` gains two mono chips ("iOS" / "Android") linking to the child pages; the Mobile service detail page links to both; footer services list, sitemap.xml, and breadcrumbs (`Services → Mobile Applications → iOS App Development`) updated; each child page cross-links to one relevant Insights article and one case study.
+- **Do not add panels to the Act Ⅲ sticky-stack** — the seven-panel choreography is final. The children live as pages, not panels.
+- "WordPress Websites" in the owner's notes = the existing WordPress Development service; keep the established naming for consistency across nav, schema, and copy.
+
+## 3 · RESPONSIVE — VERIFY
+
+Re-run the matrix: 320 / 375 / 390 / 768 / 820 / 1024 / 1280 / 1440 / 1920 + one landscape phone, every route including the two new service pages. Zero overflow, zero horizontal scroll, zero overlap, zero cropped images, zero broken pins, tap targets ≥44px, WhatsApp button clear of orbs and content, `svh/dvh` units holding on iOS. Paste a per-breakpoint sign-off table; fix only logged failures.
+
+## 4 · READABILITY — VERIFY
+
+Section-by-section confirmation in **all three themes** that the readability stack holds: hero exempt; everywhere else scrim (media ≤0.35 behind body text) or glass panel; computed contrast ≥7:1 body / ≥4.5:1 large display. Include the two new service pages. Report which sections (if any) needed the standard recipe applied.
+
+## 5 · IMAGERY — VERIFY
+
+Confirm every image is a house visual (Artifact-system CoverScene render), a real project screenshot, or gone — including any media added with the new service pages (their visuals come from the existing material recipes: AI/iridescent, WordPress/brushed steel, Headless/wireframe-morph, Mobile/ceramic, Web Apps/transmission glass, Landing/chrome, Ecommerce/gold, SaaS and UI/UX contexts reuse the nearest recipe — invent no new aesthetics). AVIF/WebP, srcset, explicit dimensions, alt text. List any replacements made.
+
+## 6 · SCROLL & 3D — VERIFY
+
+Full-speed and slow-speed scroll of every route: hero theme scrub and pin release, all pinned acts, displacement-plane pooling (max 3), parallax smoothness, theme-evolving lighting, counters firing once, ScrollTriggers surviving route changes, fps at baseline on desktop and mid-mobile, memory flat after 10× navigation, reduced-motion mode fully intact. The two new pages must use existing motion utilities only — no new easings, no new effects.
+
+## 7 · CARDS — VERIFY
+
+Every card type against the house standard (surface-2, e2, tilt ≤6°, cursor specular, micro-parallax; featured tier where designated). Log flat cards and carnival cards; fix to standard; strip stacked effects. Siblings identical in radii, spacing, hover physics — including the new iOS/Android chips and any cards on the child pages.
+
+## 8 · FINAL SWEEP & EVIDENCE
+
+Lighthouse ≥95 all four categories on every route including the new pages (paste scores) · axe zero-critical on new pages · Rich Results validation for the new `Service` + `FAQPage` schema · console clean · sitemap includes the new routes and nothing phantom · internal-link check (no orphans, no broken anchors) · one real contact-form submission still delivering.
+
+**Phases:** A — §1 + §2 (brand evidence, services expansion complete) ✅ → B — §3–§7 verification tables with fixes ✅ → C — §8 evidence pack ✅ done.
+
+**Stop condition:** all verifications green with pasted evidence, both new service pages live and indexed in the sitemap, zero regressions against baseline. Do not loop beyond that chasing polish. Begin Phase A.
