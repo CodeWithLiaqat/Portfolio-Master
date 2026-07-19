@@ -72,9 +72,12 @@ export function ActBeacon() {
               </select>
             </div>
 
+            {/* Honeypot — hidden from humans, bots will fill it */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+
             <div className="flex flex-col mb-8">
-              <label htmlFor="message" className="text-eyebrow mb-2">Message</label>
-              <textarea required id="message" name="message" rows={4} className="bg-transparent border-b border-border-main py-3 focus:outline-none focus:border-accent transition-colors text-text-main resize-none" placeholder="Tell us about your vision..."></textarea>
+              <label htmlFor="beacon-message" className="text-eyebrow mb-2">Message</label>
+              <textarea required id="beacon-message" name="message" rows={4} className="bg-transparent border-b border-border-main py-3 focus:outline-none focus:border-accent transition-colors text-text-main resize-none" placeholder="Tell us about your vision..."></textarea>
             </div>
 
             {status === 'error' && (
@@ -85,7 +88,7 @@ export function ActBeacon() {
               <MagneticButton variant="primary">
                 {status === 'loading' ? 'Transmitting...' : 'Send Inquiry'}
               </MagneticButton>
-              <a href="mailto:hello@nexa.studio" className="text-sm font-mono text-text-2 hover:text-text-main transition-colors underline">or email us directly</a>
+              <a href="mailto:hello@codeics.com" className="text-sm font-mono text-text-2 hover:text-text-main transition-colors underline">or email us directly</a>
             </div>
           </form>
         )}

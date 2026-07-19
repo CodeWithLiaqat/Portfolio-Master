@@ -93,7 +93,7 @@ export function ActConstellation() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <blockquote className="border-l border-accent pl-8">
-            <p className="text-2xl font-display mb-6">"NEXA didn't just build us a website. They engineered a digital asset that feels like a $100k physical product."</p>
+            <p className="text-2xl font-display mb-6">"CODEICS didn't just build us a website. They engineered a digital asset that feels like a $100k physical product."</p>
             <footer className="text-text-2">— Sarah Jenkins, Founder @ Maison Calloway</footer>
           </blockquote>
           <blockquote className="border-l border-accent pl-8">

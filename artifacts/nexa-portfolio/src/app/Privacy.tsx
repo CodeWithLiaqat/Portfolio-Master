@@ -8,7 +8,7 @@ export function Privacy() {
   useSmoothScroll();
   useSEO({
     title: 'Privacy Policy',
-    description: 'How NEXA handles your data, cookies, and personal information.',
+    description: 'How CODEICS handles your data, cookies, and personal information.',
     canonicalPath: '/legal/privacy',
   });
 
@@ -42,7 +42,7 @@ export function Privacy() {
           </ul>
 
           <h2>3. Data Retention</h2>
-          <p>We retain your information only as long as necessary to fulfill the purposes outlined above, or as required by law. If you wish to have your data removed from our systems, simply email us at hello@nexa.studio.</p>
+          <p>We retain your information only as long as necessary to fulfill the purposes outlined above, or as required by law. If you wish to have your data removed from our systems, simply email us at <a href="mailto:hello@codeics.com">hello@codeics.com</a>.</p>
         </article>
       </main>
       <Footer />

@@ -34,7 +34,7 @@ export function FAQ() {
   useSmoothScroll();
   useSEO({
     title: 'FAQ — Questions Answered',
-    description: 'Pricing, process, timeline, and technology questions about working with NEXA. Straight answers, no fluff.',
+    description: 'Pricing, process, timeline, and technology questions about working with CODEICS. Straight answers, no fluff.',
     canonicalPath: '/faq',
   });
   const allQuestions = faqs.flatMap(g => g.questions);

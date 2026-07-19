@@ -13,7 +13,7 @@ export function About() {
   useSmoothScroll();
   useSEO({
     title: 'About — The Studio Behind the Craft',
-    description: 'Meet NEXA: the philosophy, process, and people behind cinematic-quality web work for AI companies, luxury brands, and agencies.',
+    description: 'Meet CODEICS: the philosophy, process, and people behind cinematic-quality web work for AI companies, luxury brands, and agencies.',
     canonicalPath: '/about',
   });
   const [, setLocation] = useLocation();
@@ -87,7 +87,7 @@ export function About() {
           <h1 className="text-fluid-display font-bold mb-8 leading-[0.95]">An independent AI web developer based in London.</h1>
           <div className="w-full aspect-video bg-surface rounded-2xl overflow-hidden relative">
              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent mix-blend-overlay z-10"></div>
-             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Abstract Concept" className="w-full h-full object-cover mix-blend-luminosity" />
+             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="" role="presentation" width="2564" height="1440" className="w-full h-full object-cover mix-blend-luminosity" loading="eager" />
           </div>
         </header>
 
@@ -101,7 +101,7 @@ export function About() {
                 { year: 2018, text: "Started building functional web tools. Learned the rules of the DOM." },
                 { year: 2020, text: "Moved into WebGL and creative frontend. Realized performance is a design feature." },
                 { year: 2022, text: "Lead engineer at a boutique studio. Delivered 40+ SOTD level projects." },
-                { year: 2024, text: "Founded NEXA. Embraced AI as a multiplier for craft." },
+                { year: 2024, text: "Founded CODEICS. Embraced AI as a multiplier for craft." },
                 { year: 2026, text: "Building at the forefront of cinematic web craft." }
               ].map((item) => (
                 <div key={item.year} className="relative">

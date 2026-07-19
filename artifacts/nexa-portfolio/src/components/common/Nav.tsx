@@ -39,7 +39,7 @@ export function Nav() {
       <nav ref={navRef} className="fixed top-0 left-0 w-full z-[90] px-6 py-4 transition-transform">
         <div className="glass-panel mx-auto max-w-7xl rounded-full px-6 py-3 flex items-center justify-between">
           <TransitionLink href="/" className="font-display font-semibold tracking-[0.1em] text-xl relative group overflow-hidden">
-            NEXA
+            CODEICS
             <span className="absolute left-0 bottom-0 w-full h-[1px] bg-accent origin-right scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
           </TransitionLink>
           
@@ -56,8 +56,11 @@ export function Nav() {
               Start a project
             </TransitionLink>
             
-            <button 
-              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none"
+            <button
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-nav"
+              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
               onClick={() => setIsOpen(!isOpen)}
             >
               <div className={`w-6 h-[1px] bg-text-main transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[3.5px]' : ''}`} />
@@ -74,6 +77,7 @@ export function Nav() {
             animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
             exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.7, ease: [0.83, 0, 0.17, 1] }}
+            id="mobile-nav"
             className="fixed inset-0 z-[80] bg-bg-1/95 backdrop-blur-xl flex flex-col justify-center px-6"
           >
             <div className="max-w-7xl mx-auto w-full">

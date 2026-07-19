@@ -6,8 +6,10 @@ const router: IRouter = Router();
 const ContactInput = z.object({
   name: z.string().min(1).max(200),
   email: z.string().email().max(320),
-  projectType: z.string().max(100).optional(),
+  type: z.string().max(100).optional(),        // project type dropdown
+  projectType: z.string().max(100).optional(), // legacy alias
   message: z.string().min(10).max(5000),
+  website: z.string().max(200).optional(),     // honeypot — must be empty
 });
 
 router.post("/contact", async (req, res) => {
@@ -17,9 +19,18 @@ router.post("/contact", async (req, res) => {
     return;
   }
 
-  const { name, email, projectType, message } = parsed.data;
+  // Honeypot check — bots fill the hidden website field, humans don't
+  if (parsed.data.website) {
+    req.log.warn({ ip: req.ip }, "Honeypot triggered — bot submission rejected");
+    // Return 200 to avoid giving bots feedback; silently discard
+    res.status(200).json({ success: true, message: "Message received." });
+    return;
+  }
 
-  req.log.info({ name, email, projectType }, "Contact form submission received");
+  const { name, email, type, projectType, message } = parsed.data;
+  const resolvedProjectType = type || projectType;
+
+  req.log.info({ name, email, projectType: resolvedProjectType }, "Contact form submission received");
 
   // Send via Resend if API key is configured
   const resendApiKey = process.env.RESEND_API_KEY;
@@ -32,16 +43,16 @@ router.post("/contact", async (req, res) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "NEXA Contact <contact@nexa.studio>",
-          to: ["hello@nexa.studio"],
+          from: "CODEICS Contact <contact@codeics.com>",
+          to: ["hello@codeics.com"],
           reply_to: email,
-          subject: `New project inquiry from ${name}${projectType ? ` — ${projectType}` : ""}`,
+          subject: `New project inquiry from ${name}${resolvedProjectType ? ` — ${resolvedProjectType}` : ""}`,
           html: `
             <div style="font-family: 'JetBrains Mono', monospace; max-width: 600px; padding: 40px; background: #0A0A0C; color: #F5F1E8;">
-              <p style="color: #E8C47C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px;">NEW PROJECT INQUIRY — NEXA</p>
+              <p style="color: #E8C47C; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px;">NEW PROJECT INQUIRY — CODEICS</p>
               <p><strong>Name:</strong> ${name}</p>
               <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #E8C47C;">${email}</a></p>
-              ${projectType ? `<p><strong>Project type:</strong> ${projectType}</p>` : ""}
+              ${resolvedProjectType ? `<p><strong>Project type:</strong> ${resolvedProjectType}</p>` : ""}
               <hr style="border-color: rgba(245,241,232,0.1); margin: 24px 0;" />
               <p style="white-space: pre-wrap;">${message}</p>
             </div>
@@ -65,7 +76,7 @@ router.post("/contact", async (req, res) => {
   } else {
     // No Resend key — log the submission (development mode)
     req.log.info(
-      { name, email, projectType, messageLength: message.length },
+      { name, email, projectType: resolvedProjectType, messageLength: message.length },
       "Contact form submission (Resend not configured — set RESEND_API_KEY to enable email delivery)"
     );
   }

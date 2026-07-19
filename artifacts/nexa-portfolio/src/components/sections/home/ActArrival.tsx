@@ -18,14 +18,14 @@ export function ActArrival() {
   return (
     <section ref={containerRef} className="relative min-h-[100dvh] flex items-center justify-center pt-32 pb-24 px-6 z-10">
       <div className="max-w-7xl mx-auto w-full text-center flex flex-col items-center">
-        <p className="text-eyebrow mb-8">AI WEB DEVELOPER — NEXA</p>
+        <p className="text-eyebrow mb-8">AI WEB DEVELOPER — CODEICS</p>
         
         <h1 ref={titleRef} className="text-fluid-display font-bold max-w-5xl mb-8 leading-[0.95] tracking-[-0.02em] mix-blend-difference z-20 pointer-events-none text-text-main">
           Digital experiences, engineered.
         </h1>
         
         <p className="text-fluid-body text-text-2 mb-12 max-w-2xl mix-blend-difference">
-          NEXA builds AI-powered digital experiences for founders and agencies who refuse to settle for ordinary.
+          CODEICS builds AI-powered digital experiences for founders and agencies who refuse to settle for ordinary.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6 items-center mix-blend-difference">

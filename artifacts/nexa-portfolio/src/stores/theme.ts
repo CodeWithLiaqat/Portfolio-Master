@@ -17,18 +17,18 @@ export const useThemeStore = create<ThemeState>((set) => ({
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme);
       if (mode === 'manual') {
-        localStorage.setItem('nexa-theme', theme);
-        localStorage.setItem('nexa-theme-mode', 'manual');
+        localStorage.setItem('codeics-theme', theme);
+        localStorage.setItem('codeics-theme-mode', 'manual');
       } else {
-        localStorage.removeItem('nexa-theme');
-        localStorage.removeItem('nexa-theme-mode');
+        localStorage.removeItem('codeics-theme');
+        localStorage.removeItem('codeics-theme-mode');
       }
     }
   },
   initialize: () => {
     if (typeof document !== 'undefined') {
-      const savedTheme = localStorage.getItem('nexa-theme') as Theme;
-      const savedMode = localStorage.getItem('nexa-theme-mode');
+      const savedTheme = localStorage.getItem('codeics-theme') as Theme;
+      const savedMode = localStorage.getItem('codeics-theme-mode');
       if (savedMode === 'manual' && savedTheme) {
         set({ theme: savedTheme, mode: 'manual' });
         document.documentElement.setAttribute('data-theme', savedTheme);

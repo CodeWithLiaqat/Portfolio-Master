@@ -14,7 +14,7 @@ export function Services() {
   useSmoothScroll();
   useSEO({
     title: 'Services — What We Build',
-    description: 'From AI web apps to cinematic landing pages, ecommerce, and design systems — NEXA specialises in high-performance digital experiences.',
+    description: 'From AI web apps to cinematic landing pages, ecommerce, and design systems — CODEICS specialises in high-performance digital experiences.',
     canonicalPath: '/services',
   });
   const deckRef = useRef<HTMLDivElement>(null);

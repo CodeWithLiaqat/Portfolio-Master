@@ -22,7 +22,7 @@ export function Home() {
   useSmoothScroll();
   useSEO({
     title: 'Cinematic AI-Era Web Studio',
-    description: 'NEXA builds Awwwards-quality web experiences — WebGL, GSAP, React — for founders and agencies who refuse to settle for ordinary.',
+    description: 'CODEICS builds Awwwards-quality web experiences — WebGL, GSAP, React — for founders and agencies who refuse to settle for ordinary.',
     canonicalPath: '/',
   });
   useJsonLd('home', [buildPerson(), buildProfessionalService()]);

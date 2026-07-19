@@ -20,7 +20,7 @@ export function ServiceDetail() {
 
   useSEO({
     title: service ? `${service.title} — Service` : 'Service',
-    description: service ? service.description : 'A specialised web development service from NEXA.',
+    description: service ? service.description : 'A specialised web development service from CODEICS.',
     canonicalPath: `/services/${params.slug ?? ''}`,
   });
   useJsonLd('service-detail', service ? [

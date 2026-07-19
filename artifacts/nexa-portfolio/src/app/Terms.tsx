@@ -9,7 +9,7 @@ export function Terms() {
   useSmoothScroll();
   useSEO({
     title: 'Terms of Service',
-    description: 'NEXA\'s standard terms of engagement covering professional services, intellectual property, payment, and confidentiality.',
+    description: 'CODEICS standard terms of engagement covering professional services, intellectual property, payment, and confidentiality.',
     canonicalPath: '/legal/terms',
   });
 
@@ -62,13 +62,13 @@ export function Terms() {
               <p className="lead text-text-main">By accessing or using our website and services, you agree to be bound by these Terms. If you disagree with any part of these terms, please do not use our services.</p>
               
               <h2 id="section-1">1. Professional Services</h2>
-              <p>NEXA provides bespoke software engineering and digital design services. Detailed scopes, timelines, and deliverables for specific projects will be outlined in a separate Statement of Work (SOW) or Master Services Agreement (MSA) specific to your engagement. Timelines are estimates and subject to prompt client feedback.</p>
+              <p>CODEICS provides bespoke software engineering and digital design services. Detailed scopes, timelines, and deliverables for specific projects will be outlined in a separate Statement of Work (SOW) or Master Services Agreement (MSA) specific to your engagement. Timelines are estimates and subject to prompt client feedback.</p>
 
               <h2 id="section-2">2. Intellectual Property</h2>
-              <p>Unless explicitly stated in an MSA, NEXA retains the rights to our underlying architectural blueprints, open-source utilities (like the GSAP + Lenis framework provided in our Lab), and internal tools. You receive full, irrevocable license to the final deliverable and bespoke code authored specifically for your project upon receipt of final payment.</p>
+              <p>Unless explicitly stated in an MSA, CODEICS retains the rights to our underlying architectural blueprints, open-source utilities (like the GSAP + Lenis framework provided in our Lab), and internal tools. You receive full, irrevocable license to the final deliverable and bespoke code authored specifically for your project upon receipt of final payment.</p>
 
               <h2 id="section-3">3. Limitation of Liability</h2>
-              <p>In no event shall NEXA be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of our website or services. Our maximum liability is capped at the total fee paid for the specific project in question.</p>
+              <p>In no event shall CODEICS be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of our website or services. Our maximum liability is capped at the total fee paid for the specific project in question.</p>
 
               <h2 id="section-4">4. Payment Terms</h2>
               <p>Standard payment terms dictate a 50% upfront deposit to secure scheduling and commence discovery. The remaining 50% is due upon completion of the project, prior to deployment to production or code handoff. All invoices are Net-30 unless otherwise agreed. Late payments may incur a 1.5% monthly interest fee.</p>

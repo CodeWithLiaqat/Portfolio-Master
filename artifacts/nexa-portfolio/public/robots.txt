@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nexa.studio/sitemap.xml
+Sitemap: https://codeics.com/sitemap.xml

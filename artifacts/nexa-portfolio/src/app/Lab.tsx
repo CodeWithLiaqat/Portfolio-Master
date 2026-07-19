@@ -15,7 +15,7 @@ export function Lab() {
   useSmoothScroll();
   useSEO({
     title: 'Lab — WebGL Experiments & Open Source',
-    description: 'Where NEXA builds in public. Interactive WebGL demos, open-source utilities, code snippets, and the tools behind our work.',
+    description: 'Where CODEICS builds in public. Interactive WebGL demos, open-source utilities, code snippets, and the tools behind our work.',
     canonicalPath: '/lab',
   });
   const [, setLocation] = useLocation();

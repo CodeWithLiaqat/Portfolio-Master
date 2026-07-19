@@ -9,8 +9,8 @@ import { useLocation } from 'wouter';
 export function Contact() {
   useSmoothScroll();
   useSEO({
-    title: 'Start a Project — Contact NEXA',
-    description: 'Reach out to NEXA to discuss your project. We read every message and reply within one business day. Proposals within 48 hours.',
+    title: 'Start a Project',
+    description: 'Reach out to CODEICS to discuss your project. We read every message and reply within one business day. Proposals within 48 hours.',
     canonicalPath: '/contact',
   });
   const formRef = useRef<HTMLFormElement>(null);
@@ -98,6 +98,9 @@ export function Contact() {
                     </select>
                   </div>
 
+                  {/* Honeypot — hidden from humans, bots will fill it → reject on server */}
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+
                   <div className="flex flex-col">
                     <label htmlFor="message" className="text-eyebrow mb-2">Project Details</label>
                     <textarea required id="message" name="message" rows={5} className="bg-transparent border-b border-border-main py-3 focus:outline-none focus:border-accent transition-colors resize-none" placeholder="Budget, timeline, vision..."></textarea>
@@ -119,7 +122,7 @@ export function Contact() {
             <div>
               <h3 className="text-eyebrow mb-6">Direct Channels</h3>
               <div className="space-y-4 text-lg">
-                <p>Email: <a href="mailto:hello@nexa.studio" className="text-accent hover:underline">hello@nexa.studio</a></p>
+                <p>Email: <a href="mailto:hello@codeics.com" className="text-accent hover:underline">hello@codeics.com</a></p>
                 <p>Timezone: UTC+0 (London)</p>
               </div>
             </div>
