@@ -73,8 +73,10 @@ export function ServiceDetail() {
   const relatedStudy = caseStudies.find(c => 
     (service.slug.includes('ecommerce') && c.category === 'Ecommerce') ||
     (service.slug.includes('ai') && c.category === 'AI & SaaS') ||
-    (service.slug.includes('mobile') && c.category === 'Mobile')
+    (service.slug.includes('mobile') && c.slug === 'trckr')
   ) || caseStudies[0];
+
+  const trckr = caseStudies.find(c => c.slug === 'trckr')!
 
   const deliverableMap: Record<string, string[]> = {
     'ai-website-development': ['LLM Integration', 'Generative UI', 'Vector Search', 'Dynamic Personalization'],
@@ -152,6 +154,48 @@ export function ServiceDetail() {
             </div>
           </div>
         </section>
+
+        {/* TRCKR Featured Callout — only for Mobile Applications */}
+        {service.slug === 'mobile-applications' && trckr && (
+          <section className="mb-32">
+            <h2 className="text-2xl font-display mb-3">Featured Native Build</h2>
+            <p className="text-text-2 mb-10 max-w-2xl">See what a production-grade cross-platform native app looks like in practice.</p>
+            <Link
+              href={`/portfolio/${trckr.slug}`}
+              className="group relative flex flex-col md:flex-row gap-0 bg-surface rounded-[2rem] border border-border-main hover:border-accent/50 transition-all duration-500 overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_color-mix(in_oklab,_var(--color-accent)_8%,_transparent),_transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden="true" />
+              {/* Text side */}
+              <div className="relative z-10 flex flex-col justify-between p-10 md:p-14 md:w-1/2">
+                <div>
+                  <span className="text-eyebrow text-accent mb-4 block">Case Study — Native App</span>
+                  <h3 className="text-4xl font-display mb-4 group-hover:text-accent transition-colors">{trckr.title}</h3>
+                  <p className="text-text-2 leading-relaxed mb-8 max-w-md">{trckr.challenge}</p>
+                </div>
+                <div>
+                  <div className="font-mono text-3xl text-accent mb-8">{trckr.metric}</div>
+                  <div className="flex flex-wrap gap-2 mb-10">
+                    {trckr.stack.slice(0, 4).map(t => (
+                      <span key={t} className="px-3 py-1 rounded-full border border-border-main font-mono text-xs uppercase tracking-wider text-text-2">{t}</span>
+                    ))}
+                  </div>
+                  <span className="text-sm font-mono uppercase tracking-wider text-text-main border-b border-text-main pb-1 group-hover:text-accent group-hover:border-accent transition-colors">
+                    Read Case Study →
+                  </span>
+                </div>
+              </div>
+              {/* Visual side */}
+              <div className="relative md:w-1/2 min-h-[280px] md:min-h-0 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-surface via-transparent to-transparent z-10 pointer-events-none hidden md:block" />
+                <img
+                  src={trckr.image}
+                  alt={`${trckr.title} app preview`}
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+                />
+              </div>
+            </Link>
+          </section>
+        )}
 
         {/* Specialized Platforms — only for Mobile Applications */}
         {service.slug === 'mobile-applications' && (() => {
