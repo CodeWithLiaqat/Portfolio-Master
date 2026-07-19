@@ -69,12 +69,18 @@ export function ServiceDetail() {
 
   if (!service) return <NotFound />;
 
-  // Find a relevant case study or default to first
-  const relatedStudy = caseStudies.find(c => 
-    (service.slug.includes('ecommerce') && c.category === 'Ecommerce') ||
-    (service.slug.includes('ai') && c.category === 'AI & SaaS') ||
-    (service.slug.includes('mobile') && c.slug === 'trckr')
-  ) || caseStudies[0];
+  // Explicit per-service mapping to the most relevant case study
+  const serviceStudyMap: Record<string, string> = {
+    'ai-website-development':  'luminary-ai',
+    'premium-landing-pages':   'fractional',
+    'ecommerce-websites':      'maison-calloway',
+    'web-applications':        'apex-finance',
+    'mobile-applications':     'trckr',
+    'wordpress-development':   'the-correspondent',
+    'headless-wordpress':      'the-correspondent',
+  };
+  const relatedStudySlug = serviceStudyMap[service.slug];
+  const relatedStudy = (relatedStudySlug ? caseStudies.find(c => c.slug === relatedStudySlug) : undefined) ?? caseStudies[0];
 
   const trckr = caseStudies.find(c => c.slug === 'trckr')!
 
