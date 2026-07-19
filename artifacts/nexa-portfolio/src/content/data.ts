@@ -12,7 +12,7 @@ export const caseStudies = [
     approach: 'We built a PWA-first ordering experience around the friction-free WhatsApp checkout. Customers browse a filterable menu, build a cart, and complete their order through a pre-filled WhatsApp message — the entire flow is four taps on mobile. Daily deals with countdown timers create urgency without gimmicks.',
     stack: ['React', 'PWA', 'WhatsApp Integration', 'Tailwind CSS'],
     outcome: 'Frictionless ordering via WhatsApp with cart persistence, daily deal countdowns, and a PWA install flow that keeps repeat customers a single tap away.',
-    image: '/abdullah.png',
+    image: '/abdullah.jpg',
   },
   {
     slug: 'luminary-ai',
