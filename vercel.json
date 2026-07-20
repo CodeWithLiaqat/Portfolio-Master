@@ -1,0 +1,50 @@
+{
+  "redirects": [
+    {
+      "source": "/portfolio-tag/(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio-cat/(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wp-(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us/?",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/?(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/why-beautiful-websites-fail-without-a-strategy/?",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/education/?",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
