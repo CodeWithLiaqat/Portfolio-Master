@@ -44,7 +44,7 @@ router.post("/contact", async (req, res) => {
         },
         body: JSON.stringify({
           from: "CODEICS Contact <contact@codeics.com>",
-          to: ["hello@codeics.com"],
+          to: ["khanali.data_analyst@outlook.com"],
           reply_to: email,
           subject: `New project inquiry from ${name}${resolvedProjectType ? ` — ${resolvedProjectType}` : ""}`,
           html: `
