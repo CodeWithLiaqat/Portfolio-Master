@@ -1,6 +1,18 @@
 {
   "redirects": [
     {
+      "source": "https://www.codeics.me/:path*",
+      "destination": "https://codeics.me/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio-tag/(.*)",
+      "destination": "/",
+      "permanent": true
+    },
+{
+  "redirects": [
+    {
       "source": "/portfolio-tag/(.*)",
       "destination": "/",
       "permanent": true
